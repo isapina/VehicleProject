@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "lodash": "^4.17.10",
     "mobx": "^5.0.5",
     "mobx-react": "^5.2.5",
     "prop-types": "^15.6.2",

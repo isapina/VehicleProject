@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
-import AdditionalEquipment from './components/AdditionalEquipment';
+import AdditionalEquipment from './components/additional-equipment/AdditionalEquipment';
 
 class App extends Component {
   render() {
