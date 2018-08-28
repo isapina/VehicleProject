@@ -1,6 +1,6 @@
 .landing {
   position: relative;
-  background: lightslategray;
+  background: url('./img/car.jpg') no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
