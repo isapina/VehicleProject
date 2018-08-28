@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import axios from '../../axios';
 
 import TextFieldGroup from '../common/TextFieldGroup';
@@ -27,7 +28,7 @@ class AdditionalEquipment extends Component {
 
     try {
       await axios.post('/api/additional-equipments', data);
-      this.props.history.push('/');
+      this.props.history.push('/additional-equipment');
     } catch (error) {
       this.setState({ errors: error.response.data });
     }
@@ -58,42 +59,50 @@ class AdditionalEquipment extends Component {
     const { errors, equipmentAttributes } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <h4>Additional Equipment</h4>
-        <TextFieldGroup
-          name="name"
-          placeholder="Name"
-          value={this.state.name}
-          onChange={this.onChange}
-          error={errors.message}
-        />
-        <TextAreaFieldGroup
-          placeholder="Additional equipment Description"
-          name="description"
-          value={this.state.description}
-          onChange={this.onChange}
-          info="Small info about additional equipment"
-        />
-        <hr />
-        <div className="container mb-4">
-          <h4>Equipment Attribute</h4>
-          <div>
-            <EquipmentAttribute
-              onChange={this.onChange}
-              name={this.state.equipmentname}
-              description={this.state.equipmentdescription}
-            />
-            <button
-              type="button"
-              className="btn btn-outline-secondary btn-sm"
-              onClick={(e) => this.addNewEquipmentAttribute({ name: this.state.equipmentname, description: this.state.equipmentdescription }, e)}
-            >Add to list
+      <Fragment>
+        <Link
+          to="/additional-equipment"
+          className="btn btn-light mb-4"
+        >
+          <i className="fas fa-chevron-left"></i> Go back
+        </Link>
+        <form onSubmit={this.onSubmit}>
+          <h4>Additional Equipment</h4>
+          <TextFieldGroup
+            name="name"
+            placeholder="Name"
+            value={this.state.name}
+            onChange={this.onChange}
+            error={errors.message}
+          />
+          <TextAreaFieldGroup
+            placeholder="Additional equipment Description"
+            name="description"
+            value={this.state.description}
+            onChange={this.onChange}
+            info="Small info about additional equipment"
+          />
+          <hr />
+          <div className="container mb-4">
+            <h4>Equipment Attribute</h4>
+            <div>
+              <EquipmentAttribute
+                onChange={this.onChange}
+                name={this.state.equipmentname}
+                description={this.state.equipmentdescription}
+              />
+              <button
+                type="button"
+                className="btn btn-outline-secondary btn-sm"
+                onClick={(e) => this.addNewEquipmentAttribute({ name: this.state.equipmentname, description: this.state.equipmentdescription }, e)}
+              >Add to list
             </button>
+            </div>
           </div>
-        </div>
-        {equipmentAttributes.length > 0 ? <EquipmentAttributeList attributes={equipmentAttributes} removeFromList={this.removeFromList} /> : ''}
-        <input type="submit" className="btn btn-primary btn-block mt-4" value="Submit" />
-      </form>
+          {equipmentAttributes.length > 0 ? <EquipmentAttributeList attributes={equipmentAttributes} removeFromList={this.removeFromList} /> : ''}
+          <input type="submit" className="btn btn-primary btn-block mt-4" value="Submit" />
+        </form>
+      </Fragment>
     );
   }
 };

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
+import AdditionalEquipments from './components/additional-equipment/AdditionalEquipments';
 import AdditionalEquipment from './components/additional-equipment/AdditionalEquipment';
 
 class App extends Component {
@@ -16,7 +17,8 @@ class App extends Component {
           <div className="container">
             <Switch>
               <Route path="/" component={Landing} exact />
-              <Route path="/add-additional-equipment" component={AdditionalEquipment} exact />
+              <Route path="/additional-equipment/add" component={AdditionalEquipment} exact />
+              <Route path="/additional-equipment" component={AdditionalEquipments} exact />
             </Switch>
           </div>
           <Footer />
