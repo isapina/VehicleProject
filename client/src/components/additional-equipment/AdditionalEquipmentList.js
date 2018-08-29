@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class AdditionalEquipmentList extends Component {
@@ -20,6 +21,12 @@ class AdditionalEquipmentList extends Component {
             className="btn btn-outline-danger btn-sm"
             onClick={() => this.props.onRemoveAdditionalEquipment(equipment.id)}
           > Remove
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-info btn-sm ml-2"
+            onClick={() => this.props.onSelect(equipment.id, this.props.history)}
+          > Edit
           </button>
         </td>
       </tr>)
@@ -47,4 +54,4 @@ AdditionalEquipmentList.propTypes = {
   onRemoveAdditionalEquipment: PropTypes.func.isRequired
 }
 
-export default AdditionalEquipmentList;
+export default withRouter(AdditionalEquipmentList);

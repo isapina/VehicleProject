@@ -6,7 +6,8 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import AdditionalEquipments from './components/additional-equipment/AdditionalEquipments';
-import AdditionalEquipment from './components/additional-equipment/AdditionalEquipment';
+import AddAdditionalEquipment from './components/additional-equipment/AddAdditionalEquipment';
+import EditAdditionalEquipment from './components/additional-equipment/EditAdditionalEquipment';
 
 class App extends Component {
   render() {
@@ -17,7 +18,8 @@ class App extends Component {
           <div className="container">
             <Switch>
               <Route path="/" component={Landing} exact />
-              <Route path="/additional-equipment/add" component={AdditionalEquipment} exact />
+              <Route path="/additional-equipment/add" component={AddAdditionalEquipment} exact />
+              <Route path="/additional-equipment/:id" component={EditAdditionalEquipment} exact />
               <Route path="/additional-equipment" component={AdditionalEquipments} exact />
             </Switch>
           </div>

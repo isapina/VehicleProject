@@ -1,20 +1,23 @@
 import React, { Fragment } from 'react';
 
 const EquipmentAttributeList = (props) => {
-  const attributes = props.attributes.map(attribute => (
-    <tr key={attribute.key}>
-      <td>{attribute.name}</td>
-      <td>
-        <button
-          type="button"
-          className="btn btn-outline-danger btn-sm"
-          onClick={() => props.removeFromList(attribute.key)}
-        >
-          Remove
+  const attributes = props.attributes.map(attribute => {
+    return (
+      <tr key={attribute.id}>
+        <td>{attribute.name}</td>
+        <td>
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-sm"
+            onClick={() => props.removeFromList(attribute.id)}
+          >
+            Remove
       </button>
-      </td>
-    </tr>
-  ));
+        </td>
+      </tr>)
+  }
+
+  );
 
   return (
     <Fragment >

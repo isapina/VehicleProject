@@ -1,38 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from '../../axios';
+import { inject, observer } from 'mobx-react';
 import AdditionalEquipmentList from './AdditionalEquipmentList';
+import Spinner from '../common/Spinner';
 
+@inject('store')
+@observer
 class AdditionalEquipments extends Component {
-  state = {
-    additionalEquipments: []
-  }
-
-  async componentDidMount() {
-    try {
-      const url = "/api/additional-equipments?embeds=equipmentattributes";
-      const res = await axios.get(url);
-
-      this.setState({ additionalEquipments: res.data.data })
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  onRemoveAdditionalEquipment = async (id) => {
-    try {
-      await axios.delete(`/api/additional-equipments/${id}`);
-      const newAdditionalEquipments = this.state.additionalEquipments.filter(e => e.id !== id);
-
-      this.setState({ additionalEquipments: newAdditionalEquipments })
-    } catch (error) {
-      console.log(error);
-    }
+  componentDidMount() {
+    this.props.store.equipments.fetchData();
   }
 
   render() {
     const { pathname } = this.props.location
-    const { additionalEquipments } = this.state;
+    const { additionalEquipments, onRemoveAdditionalEquipment, onSelect } = this.props.store.equipments;
     return (
       <div>
         <div className="mx-auto ">
@@ -40,20 +21,17 @@ class AdditionalEquipments extends Component {
             to={`${pathname}/add`}
             className="btn btn-info  d-inline mr-4"
           >Add additional equipment</Link>
-          <Link
-            to={`${pathname}/edit`}
-            className="btn btn-secondary  d-inline mr-4"
-          >Edit additional equipment</Link>
         </div>
         {
           additionalEquipments.length > 0
             ? (
               <AdditionalEquipmentList
                 equipments={additionalEquipments}
-                onRemoveAdditionalEquipment={this.onRemoveAdditionalEquipment}
+                onRemoveAdditionalEquipment={onRemoveAdditionalEquipment}
+                onSelect={onSelect}
               />
             )
-            : ''
+            : <Spinner />
         }
 
       </div>

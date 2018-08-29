@@ -1,8 +1,16 @@
+import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import App from './App';
+import { Provider } from 'mobx-react';
+import rootStore from './store/rootStore';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const jsx = (
+  <Provider store={rootStore} >
+    <App />
+  </Provider>
+)
+
+ReactDOM.render(jsx, document.getElementById('root'));
 registerServiceWorker();
