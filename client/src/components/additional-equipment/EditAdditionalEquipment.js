@@ -18,24 +18,30 @@ class EditAdditionalEquipment extends Component {
 
   render() {
     const id = this.props.match.params.id;
-    const { equipment: store } = this.props.store;
-    const renderEditView = store.name === 'undefined' || store.equipmentname === 'undefined'
+    const {
+      additionalEquipment,
+      onChange,
+      removeFromList,
+      updateAdditionalEquipment,
+      addNewEquipmentAttribute
+    } = this.props.store.equipment;
+    const renderEditView = additionalEquipment.name === ''
       ? <Spinner />
       : (
-        <form onSubmit={(e) => store.updateAdditionalEquipment(e, id, this.props.history)}>
+        <form onSubmit={(e) => updateAdditionalEquipment(e, id, this.props.history)}>
           <h4>Edit Additional Equipment</h4>
           <TextFieldGroup
             name="name"
             placeholder="Name"
-            value={store.name}
-            onChange={store.onChange}
+            value={additionalEquipment.name}
+            onChange={additionalEquipment.onChange}
             disabled={true}
           />
           <TextAreaFieldGroup
             placeholder="Additional equipment Description"
             name="description"
-            value={store.description}
-            onChange={store.onChange}
+            value={additionalEquipment.description}
+            onChange={onChange}
             info="Small info about additional equipment"
             disabled={true}
           />
@@ -44,21 +50,26 @@ class EditAdditionalEquipment extends Component {
             <h4>Equipment Attribute</h4>
             <div>
               <EquipmentAttribute
-                onChange={store.onChange}
-                name={store.equipmentname}
-                description={store.equipmentdescription}
+                onChange={onChange}
+                name={additionalEquipment.equipmentname}
+                description={additionalEquipment.equipmentdescription}
               />
               <button
                 type="button"
                 className="btn btn-outline-secondary btn-sm"
-                onClick={store.addNewEquipmentAttribute}
+                onClick={addNewEquipmentAttribute}
               >Add to list
-      </button>
+              </button>
             </div>
           </div>
-          {store.equipmentAttributes.length > 0 ? <EquipmentAttributeList attributes={store.equipmentAttributes} removeFromList={store.removeFromList} /> : ''}
+          {
+            additionalEquipment.equipmentAttributes.length > 0
+              ? <EquipmentAttributeList attributes={additionalEquipment.equipmentAttributes} removeFromList={removeFromList} />
+              : ''
+          }
           <input type="submit" className="btn btn-primary btn-block mt-4" value="Submit" />
-        </form>)
+        </form>
+      )
 
     return (
       <Fragment>

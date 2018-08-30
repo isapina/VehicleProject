@@ -6,10 +6,12 @@ const rootURL = "/api/additional-equipments";
 const embeds = "equipmentattributes";
 
 class AdditionalEquipmentStore {
-  @observable name = '';
-  @observable description = '';
-  @observable equipmentname = '';
-  @observable equipmentAttributes = [];
+  @observable additionalEquipment = {
+    name: '',
+    description: '',
+    equipmentname: '',
+    equipmentAttributes: []
+  }
   @observable additionalEquipments = [];
   @observable errors = {};
 
@@ -17,18 +19,14 @@ class AdditionalEquipmentStore {
     e.preventDefault();
 
     const data = [{
-      name: this.name,
-      description: this.description,
-      equipmentAttributes: _.map(this.equipmentAttributes, _.partialRight(_.pick, 'name'))
+      name: this.additionalEquipment.name,
+      description: this.additionalEquipment.description,
+      equipmentAttributes: _.map(this.additionalEquipment.equipmentAttributes, _.partialRight(_.pick, 'name'))
     }];
 
     try {
       await axios.post(rootURL, data);
-      this.name = '';
-      this.description = '';
-      this.equipmentname = '';
-      this.equipmentAttributes = [];
-      this.errors = {};
+      this.refreshStateToInitialValue();
 
       history.push('/additional-equipment');
     } catch (error) {
@@ -39,9 +37,9 @@ class AdditionalEquipmentStore {
   @action loadEquipmentData = async (id) => {
     try {
       const res = await axios.get(`${rootURL}/${id}?embeds=${embeds}`);
-      this.equipmentAttributes = res.data.equipmentAttributes;
-      this.description = res.data.description;
-      this.name = res.data.name;
+      this.additionalEquipment.equipmentAttributes = res.data.equipmentAttributes;
+      this.additionalEquipment.description = res.data.description;
+      this.additionalEquipment.name = res.data.name;
 
     } catch (error) {
       this.errors = error.response.data;
@@ -52,12 +50,8 @@ class AdditionalEquipmentStore {
     e.preventDefault();
 
     try {
-      await axios.post(`${rootURL}/${id}/attributes`, this.equipmentAttributes);
-      this.name = '';
-      this.description = '';
-      this.equipmentname = '';
-      this.equipmentAttributes = [];
-      this.errors = {};
+      await axios.post(`${rootURL}/${id}/attributes`, this.additionalEquipment.equipmentAttributes);
+      this.refreshStateToInitialValue();
 
       history.push('/additional-equipment');
     } catch (error) {
@@ -66,22 +60,22 @@ class AdditionalEquipmentStore {
   }
 
   @action onChange = (e) => {
-    this[e.target.name] = e.target.value;
+    this.additionalEquipment[e.target.name] = e.target.value;
   }
 
   @action addNewEquipmentAttribute = (e) => {
     e.preventDefault();
 
-    const newEquipmentAttributes = this.equipmentAttributes;
-    newEquipmentAttributes.push({ name: this.equipmentname, id: Math.random() });
+    const newEquipmentAttributes = this.additionalEquipment.equipmentAttributes;
+    newEquipmentAttributes.push({ name: this.additionalEquipment.equipmentname, id: Math.random() });
 
-    this.equipmentAttributes = newEquipmentAttributes;
-    this.equipmentname = '';
+    this.additionalEquipment.equipmentAttributes = newEquipmentAttributes;
+    this.additionalEquipment.equipmentname = '';
   };
 
   @action removeFromList = (id) => {
-    const newEquipmentAttributes = this.equipmentAttributes.filter(e => e.id !== id);
-    this.equipmentAttributes = newEquipmentAttributes;
+    const newEquipmentAttributes = _.filter(this.additionalEquipment.equipmentAttributes, e => e.id !== id);
+    this.additionalEquipment.equipmentAttributes = newEquipmentAttributes;
   }
 
   @action fetchData = async () => {
@@ -96,7 +90,7 @@ class AdditionalEquipmentStore {
   @action onRemoveAdditionalEquipment = async (id) => {
     try {
       await axios.delete(`/api/additional-equipments/${id}`);
-      const newAdditionalEquipments = this.additionalEquipments.filter(e => e.id !== id);
+      const newAdditionalEquipments = _.filter(this.additionalEquipments, e => e.id !== id);
       this.additionalEquipments = newAdditionalEquipments;
     } catch (error) {
       this.errors = error.response.data;
@@ -105,6 +99,14 @@ class AdditionalEquipmentStore {
 
   @action onSelect = (id, history) => {
     history.push(`/additional-equipment/${id}`);
+  }
+
+  @action refreshStateToInitialValue = () => {
+    this.additionalEquipment.name = '';
+    this.additionalEquipment.description = '';
+    this.additionalEquipment.equipmentname = '';
+    this.additionalEquipment.equipmentAttributes = [];
+    this.additionalEquipment.errors = {};
   }
 }
 
