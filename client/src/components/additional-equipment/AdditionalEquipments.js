@@ -8,12 +8,12 @@ import Spinner from '../common/Spinner';
 @observer
 class AdditionalEquipments extends Component {
   componentDidMount() {
-    this.props.store.equipments.fetchData();
+    this.props.store.equipment.fetchData();
   }
 
   render() {
     const { pathname } = this.props.location
-    const { equipments: store } = this.props.store;
+    const { equipment: store } = this.props.store;
     return (
       <div>
         <div className="mx-auto ">

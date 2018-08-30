@@ -10,6 +10,7 @@ class AdditionalEquipmentStore {
   @observable description = '';
   @observable equipmentname = '';
   @observable equipmentAttributes = [];
+  @observable additionalEquipments = [];
   @observable errors = {};
 
   @action saveAdditionalEquipment = async (e, history) => {
@@ -81,6 +82,29 @@ class AdditionalEquipmentStore {
   @action removeFromList = (id) => {
     const newEquipmentAttributes = this.equipmentAttributes.filter(e => e.id !== id);
     this.equipmentAttributes = newEquipmentAttributes;
+  }
+
+  @action fetchData = async () => {
+    try {
+      const res = await axios.get(`${rootURL}?embeds=${embeds}`);
+      this.additionalEquipments = res.data.data;
+    } catch (error) {
+      this.errors = error.response.data;
+    }
+  }
+
+  @action onRemoveAdditionalEquipment = async (id) => {
+    try {
+      await axios.delete(`/api/additional-equipments/${id}`);
+      const newAdditionalEquipments = this.additionalEquipments.filter(e => e.id !== id);
+      this.additionalEquipments = newAdditionalEquipments;
+    } catch (error) {
+      this.errors = error.response.data;
+    }
+  }
+
+  @action onSelect = (id, history) => {
+    history.push(`/additional-equipment/${id}`);
   }
 }
 
