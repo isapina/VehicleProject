@@ -10,6 +10,7 @@ const EquipmentAttribute = (props) => (
       placeholder="Equipment attribute"
       value={props.name}
       onChange={props.onChange}
+      error={props.error}
     />
   </div>
 );

@@ -15,26 +15,33 @@ class AdditionalEquipmentStore {
   @observable additionalEquipments = [];
   @observable errors = {};
 
-  @action saveAdditionalEquipment = async (e, history) => {
+  @action
+  saveAdditionalEquipment = async (e, history) => {
     e.preventDefault();
 
-    const data = [{
-      name: this.additionalEquipment.name,
-      description: this.additionalEquipment.description,
-      equipmentAttributes: _.map(this.additionalEquipment.equipmentAttributes, _.partialRight(_.pick, 'name'))
-    }];
+    if (this.additionalEquipment.name.length <= 0) {
+      this.errors.name = 'You have to fill name input field.';
+      return;
+    } else {
+      const data = [{
+        name: this.additionalEquipment.name,
+        description: this.additionalEquipment.description,
+        equipmentAttributes: _.map(this.additionalEquipment.equipmentAttributes, _.partialRight(_.pick, 'name'))
+      }];
 
-    try {
-      await axios.post(rootURL, data);
-      this.refreshStateToInitialValue();
+      try {
+        await axios.post(rootURL, data);
+        this.refreshStateToInitialValue();
 
-      history.push('/additional-equipment');
-    } catch (error) {
-      this.errors = error.response.data;
+        history.push('/additional-equipment');
+      } catch (error) {
+        this.errors = error.response.data;
+      }
     }
   }
 
-  @action loadEquipmentData = async (id) => {
+  @action
+  loadEquipmentData = async (id) => {
     try {
       const res = await axios.get(`${rootURL}/${id}?embeds=${embeds}`);
       this.additionalEquipment.equipmentAttributes = res.data.equipmentAttributes;
@@ -46,7 +53,8 @@ class AdditionalEquipmentStore {
     }
   }
 
-  @action updateAdditionalEquipment = async (e, id, history) => {
+  @action
+  updateAdditionalEquipment = async (e, id, history) => {
     e.preventDefault();
 
     try {
@@ -59,25 +67,35 @@ class AdditionalEquipmentStore {
     }
   }
 
-  @action onChange = (e) => {
+  @action
+  onChange = (e) => {
     this.additionalEquipment[e.target.name] = e.target.value;
   }
 
-  @action addNewEquipmentAttribute = (e) => {
+  @action
+  addNewEquipmentAttribute = (e) => {
     e.preventDefault();
 
-    const newEquipmentAttributes = this.additionalEquipment.equipmentAttributes;
-    newEquipmentAttributes.push({ name: this.additionalEquipment.equipmentname, id: Math.random() });
+    if (this.additionalEquipment.equipmentname.length > 0) {
+      const newEquipmentAttributes = this.additionalEquipment.equipmentAttributes;
+      newEquipmentAttributes.push({ name: this.additionalEquipment.equipmentname, id: Math.random() });
 
-    this.additionalEquipment.equipmentAttributes = newEquipmentAttributes;
-    this.additionalEquipment.equipmentname = '';
+      this.additionalEquipment.equipmentAttributes = newEquipmentAttributes;
+      this.additionalEquipment.equipmentname = '';
+      this.errors.equipmentname = '';
+    }
+    else {
+      this.errors.equipmentname = "You cannot add attribute without name";
+    }
   };
 
-  @action removeFromList = (id) => {
+  @action
+  removeFromList = (id) => {
     _.remove(this.additionalEquipment.equipmentAttributes, e => e.id === id);
   }
 
-  @action fetchData = async () => {
+  @action
+  fetchData = async () => {
     try {
       const res = await axios.get(`${rootURL}?embeds=${embeds}`);
       this.additionalEquipments = res.data.data;
@@ -86,7 +104,8 @@ class AdditionalEquipmentStore {
     }
   }
 
-  @action onRemoveAdditionalEquipment = async (id) => {
+  @action
+  onRemoveAdditionalEquipment = async (id) => {
     try {
       await axios.delete(`/api/additional-equipments/${id}`);
       _.remove(this.additionalEquipments, e => e.id === id);
@@ -95,16 +114,18 @@ class AdditionalEquipmentStore {
     }
   }
 
-  @action onSelect = (id, history) => {
+  @action
+  onSelect = (id, history) => {
     history.push(`/additional-equipment/${id}`);
   }
 
-  @action refreshStateToInitialValue = () => {
+  @action
+  refreshStateToInitialValue = () => {
     this.additionalEquipment.name = '';
     this.additionalEquipment.description = '';
     this.additionalEquipment.equipmentname = '';
     this.additionalEquipment.equipmentAttributes = [];
-    this.additionalEquipment.errors = {};
+    this.errors = {};
   }
 }
 

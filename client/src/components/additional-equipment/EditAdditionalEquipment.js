@@ -23,7 +23,8 @@ class EditAdditionalEquipment extends Component {
       onChange,
       removeFromList,
       updateAdditionalEquipment,
-      addNewEquipmentAttribute
+      addNewEquipmentAttribute,
+      errors
     } = this.props.store.equipment;
     const renderEditView = additionalEquipment.name === ''
       ? <Spinner />
@@ -53,6 +54,7 @@ class EditAdditionalEquipment extends Component {
                 onChange={onChange}
                 name={additionalEquipment.equipmentname}
                 description={additionalEquipment.equipmentdescription}
+                error={errors.equipmentname}
               />
               <button
                 type="button"

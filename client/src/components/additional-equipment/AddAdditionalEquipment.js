@@ -37,7 +37,7 @@ class AddAdditionalEquipment extends Component {
             placeholder="Name"
             value={additionalEquipment.name}
             onChange={onChange}
-            error={err.message}
+            error={err.message || err.name}
           />
           <TextAreaFieldGroup
             placeholder="Additional equipment Description"
@@ -54,6 +54,7 @@ class AddAdditionalEquipment extends Component {
                 onChange={onChange}
                 name={additionalEquipment.equipmentname}
                 description={additionalEquipment.equipmentdescription}
+                error={err.equipmentname}
               />
               <button
                 type="button"
