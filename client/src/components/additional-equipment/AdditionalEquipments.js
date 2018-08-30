@@ -13,7 +13,7 @@ class AdditionalEquipments extends Component {
 
   render() {
     const { pathname } = this.props.location
-    const { additionalEquipments, onRemoveAdditionalEquipment, onSelect } = this.props.store.equipments;
+    const { equipments: store } = this.props.store;
     return (
       <div>
         <div className="mx-auto ">
@@ -23,12 +23,12 @@ class AdditionalEquipments extends Component {
           >Add additional equipment</Link>
         </div>
         {
-          additionalEquipments.length > 0
+          store.additionalEquipments.length > 0
             ? (
               <AdditionalEquipmentList
-                equipments={additionalEquipments}
-                onRemoveAdditionalEquipment={onRemoveAdditionalEquipment}
-                onSelect={onSelect}
+                equipments={store.additionalEquipments}
+                onRemoveAdditionalEquipment={store.onRemoveAdditionalEquipment}
+                onSelect={store.onSelect}
               />
             )
             : <Spinner />

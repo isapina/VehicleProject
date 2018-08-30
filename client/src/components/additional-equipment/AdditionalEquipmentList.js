@@ -1,19 +1,24 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class AdditionalEquipmentList extends Component {
   render() {
-    const show = this.props.equipments.map(equipment => (
+    const show = _.map(this.props.equipments, equipment => (
       <tr
         key={equipment.id}>
         <td>{equipment.name}</td>
         <td>{equipment.description}</td>
         <td>
-          {equipment.equipmentAttributes.map(attr => <div key={attr.id}>
-            <span>{attr.name}</span>
-          </div>
-          )}
+          {
+            _.map(equipment.equipmentAttributes, attr => (
+              <div key={attr.id}>
+                <span>{attr.name}</span>
+              </div>
+            )
+            )
+          }
         </td>
         <td>
           <button

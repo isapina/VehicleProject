@@ -1,7 +1,8 @@
+import _ from 'lodash';
 import React, { Fragment } from 'react';
 
 const EquipmentAttributeList = (props) => {
-  const attributes = props.attributes.map(attribute => {
+  const attributes = _.map(props.attributes, attribute => {
     return (
       <tr key={attribute.id}>
         <td>{attribute.name}</td>
@@ -10,11 +11,11 @@ const EquipmentAttributeList = (props) => {
             type="button"
             className="btn btn-outline-danger btn-sm"
             onClick={() => props.removeFromList(attribute.id)}
-          >
-            Remove
-      </button>
+          > Remove
+          </button>
         </td>
-      </tr>)
+      </tr>
+    )
   }
 
   );
