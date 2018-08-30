@@ -74,8 +74,7 @@ class AdditionalEquipmentStore {
   };
 
   @action removeFromList = (id) => {
-    const newEquipmentAttributes = _.filter(this.additionalEquipment.equipmentAttributes, e => e.id !== id);
-    this.additionalEquipment.equipmentAttributes = newEquipmentAttributes;
+    _.remove(this.additionalEquipment.equipmentAttributes, e => e.id === id);
   }
 
   @action fetchData = async () => {
@@ -90,8 +89,7 @@ class AdditionalEquipmentStore {
   @action onRemoveAdditionalEquipment = async (id) => {
     try {
       await axios.delete(`/api/additional-equipments/${id}`);
-      const newAdditionalEquipments = _.filter(this.additionalEquipments, e => e.id !== id);
-      this.additionalEquipments = newAdditionalEquipments;
+      _.remove(this.additionalEquipments, e => e.id === id);
     } catch (error) {
       this.errors = error.response.data;
     }
