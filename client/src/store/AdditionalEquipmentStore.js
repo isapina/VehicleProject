@@ -1,9 +1,6 @@
 import _ from 'lodash';
-import { action, observable } from 'mobx';
-import axios from '../axios';
-
-const rootURL = "/api/additional-equipments";
-const embeds = "equipmentattributes";
+import { action, observable, runInAction } from 'mobx';
+import * as service from '../service/additionalEquipmentService';
 
 class AdditionalEquipmentStore {
   @observable additionalEquipment = {
@@ -16,34 +13,23 @@ class AdditionalEquipmentStore {
   @observable errors = {};
 
   @action
-  saveAdditionalEquipment = async (e, history) => {
-    e.preventDefault();
+  saveAdditionalEquipment = async (history) => {
+    const { name, description, equipmentAttributes } = this.additionalEquipment;
 
-    if (this.additionalEquipment.name.length <= 0) {
-      this.errors.name = 'You have to fill name input field.';
-      return;
-    } else {
-      const data = [{
-        name: this.additionalEquipment.name,
-        description: this.additionalEquipment.description,
-        equipmentAttributes: _.map(this.additionalEquipment.equipmentAttributes, _.partialRight(_.pick, 'name'))
-      }];
+    try {
+      await service.save([{ name, description, equipmentAttributes }]);
+      this.refreshStateToInitialValue();
 
-      try {
-        await axios.post(rootURL, data);
-        this.refreshStateToInitialValue();
-
-        history.push('/additional-equipment');
-      } catch (error) {
-        this.errors = error.response.data;
-      }
+      history.push('/additional-equipment');
+    } catch (error) {
+      this.errors = error.response.data;
     }
   }
 
   @action
-  loadEquipmentData = async (id) => {
+  findOne = async (id, embeds) => {
     try {
-      const res = await axios.get(`${rootURL}/${id}?embeds=${embeds}`);
+      const res = await service.findOne(id, embeds);
       this.additionalEquipment.equipmentAttributes = res.data.equipmentAttributes;
       this.additionalEquipment.description = res.data.description;
       this.additionalEquipment.name = res.data.name;
@@ -54,14 +40,20 @@ class AdditionalEquipmentStore {
   }
 
   @action
-  updateAdditionalEquipment = async (e, id, history) => {
-    e.preventDefault();
-
+  find = async (params) => {
     try {
-      await axios.post(`${rootURL}/${id}/attributes`, this.additionalEquipment.equipmentAttributes);
-      this.refreshStateToInitialValue();
+      const res = await service.find(params);
+      this.additionalEquipments = res.data.data;
+    } catch (error) {
+      this.errors = error.response.data;
+    }
+  }
 
-      history.push('/additional-equipment');
+  @action
+  updateAdditionalEquipment = async (id) => {
+    try {
+      await service.update(id, this.additionalEquipment.equipmentAttributes);
+      this.refreshStateToInitialValue();
     } catch (error) {
       this.errors = error.response.data;
     }
@@ -73,20 +65,10 @@ class AdditionalEquipmentStore {
   }
 
   @action
-  addNewEquipmentAttribute = (e) => {
-    e.preventDefault();
-
-    if (this.additionalEquipment.equipmentname.length > 0) {
-      const newEquipmentAttributes = this.additionalEquipment.equipmentAttributes;
-      newEquipmentAttributes.push({ name: this.additionalEquipment.equipmentname, id: Math.random() });
-
-      this.additionalEquipment.equipmentAttributes = newEquipmentAttributes;
-      this.additionalEquipment.equipmentname = '';
-      this.errors.equipmentname = '';
-    }
-    else {
-      this.errors.equipmentname = "You cannot add attribute without name";
-    }
+  addNewEquipmentAttribute = () => {
+    this.additionalEquipment.equipmentAttributes.push({ name: this.additionalEquipment.equipmentname, id: Math.random() });;
+    this.additionalEquipment.equipmentname = '';
+    this.errors.equipmentname = '';
   };
 
   @action
@@ -95,19 +77,9 @@ class AdditionalEquipmentStore {
   }
 
   @action
-  fetchData = async () => {
-    try {
-      const res = await axios.get(`${rootURL}?embeds=${embeds}`);
-      this.additionalEquipments = res.data.data;
-    } catch (error) {
-      this.errors = error.response.data;
-    }
-  }
-
-  @action
   onRemoveAdditionalEquipment = async (id) => {
     try {
-      await axios.delete(`/api/additional-equipments/${id}`);
+      await service.remove(id);
       _.remove(this.additionalEquipments, e => e.id === id);
     } catch (error) {
       this.errors = error.response.data;

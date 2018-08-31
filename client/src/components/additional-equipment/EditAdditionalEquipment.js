@@ -8,12 +8,20 @@ import EquipmentAttribute from './EquipmentAttribute';
 import EquipmentAttributeList from './EquipmentAttributeList';
 import Spinner from '../common/Spinner';
 
+// TODO: BACA NEKI ERROR--provjeriti u pon
+
 @inject('store')
 @observer
 class EditAdditionalEquipment extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-    this.props.store.equipment.loadEquipmentData(id);
+    this.props.store.equipment.findOne(id, 'equipmentattributes');
+  }
+
+  onSubmit = async (e, id) => {
+    e.preventDefault();
+    await this.props.store.equipment.updateAdditionalEquipment(id)
+    this.props.history.push('/additional-equipment');
   }
 
   render() {
@@ -22,14 +30,13 @@ class EditAdditionalEquipment extends Component {
       additionalEquipment,
       onChange,
       removeFromList,
-      updateAdditionalEquipment,
       addNewEquipmentAttribute,
       errors
     } = this.props.store.equipment;
     const renderEditView = additionalEquipment.name === ''
       ? <Spinner />
       : (
-        <form onSubmit={(e) => updateAdditionalEquipment(e, id, this.props.history)}>
+        <form onSubmit={(e) => this.onSubmit(e, id)}>
           <h4>Edit Additional Equipment</h4>
           <TextFieldGroup
             name="name"

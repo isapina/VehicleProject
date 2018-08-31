@@ -4,12 +4,12 @@ import { inject, observer } from 'mobx-react';
 import AdditionalEquipmentList from './AdditionalEquipmentList';
 import Spinner from '../common/Spinner';
 
-@inject('store')
+@inject(({ store: { equipment } }) => ({ equipment }))
 @observer
 class AdditionalEquipments extends Component {
   componentDidMount() {
-    this.props.store.equipment.refreshStateToInitialValue();
-    this.props.store.equipment.fetchData();
+    this.props.equipment.refreshStateToInitialValue();
+    this.props.equipment.find({ embeds: 'equipmentattributes' });
   }
 
   // TODO :  filter    --> @observable searchTerm = '';                      default = null;       
@@ -21,7 +21,7 @@ class AdditionalEquipments extends Component {
 
   render() {
     const { pathname } = this.props.location
-    const { equipment: store } = this.props.store;
+    const { equipment: store } = this.props;
     const renderList = store.additionalEquipments.length > 0
       ? (
         <AdditionalEquipmentList

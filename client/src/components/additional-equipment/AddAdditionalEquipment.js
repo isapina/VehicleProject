@@ -11,14 +11,18 @@ import EquipmentAttributeList from './EquipmentAttributeList';
 @inject('store')
 @observer
 class AddAdditionalEquipment extends Component {
+  onSubmit = async (e) => {
+    e.preventDefault();
+    await this.props.store.equipment.saveAdditionalEquipment(this.props.history);
+  }
+
   render() {
     const {
       additionalEquipment,
       errors,
       onChange,
       removeFromList,
-      addNewEquipmentAttribute,
-      saveAdditionalEquipment
+      addNewEquipmentAttribute
     } = this.props.store.equipment;
     const err = !_.isEmpty(errors) && errors;
 
@@ -30,7 +34,7 @@ class AddAdditionalEquipment extends Component {
         >
           <i className="fas fa-chevron-left"></i> Go back
         </Link>
-        <form onSubmit={(e) => saveAdditionalEquipment(e, this.props.history)}>
+        <form onSubmit={this.onSubmit}>
           <h4>Add Additional Equipment</h4>
           <TextFieldGroup
             name="name"
