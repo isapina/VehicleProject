@@ -1,3 +1,3 @@
 export default [
-  { name: 'equipmentattributes', value: true, label: 'Attributes' }
+  { name: 'equipmentattributes', value: false, label: 'Attributes' }
 ];
