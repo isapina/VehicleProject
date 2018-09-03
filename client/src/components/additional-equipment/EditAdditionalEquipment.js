@@ -42,7 +42,7 @@ class EditAdditionalEquipment extends Component {
             name="name"
             placeholder="Name"
             value={additionalEquipment.name}
-            onChange={additionalEquipment.onChange}
+            onChange={onChange}
             disabled={true}
           />
           <TextAreaFieldGroup

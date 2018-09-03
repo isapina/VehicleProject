@@ -1,46 +1,50 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
+
 import AdditionalEquipmentList from './AdditionalEquipmentList';
 import Spinner from '../common/Spinner';
+import Sorting from '../filter/Sorting';
+import SearchBox from '../search-box/SearchBox';
 
-@inject(({ store: { equipment } }) => ({ equipment }))
+@inject('store')
 @observer
 class AdditionalEquipments extends Component {
   componentDidMount() {
-    this.props.equipment.refreshStateToInitialValue();
-    this.props.equipment.find({ embeds: 'equipmentattributes' });
+    this.props.store.equipment.refreshStateToInitialValue();
   }
-
-  // TODO :  filter    --> @observable searchTerm = '';                      default = null;       
-  //         sorting   --> @observable orderBy='id || name'                  default = null;
-  //         sorting   --> @observable ascending='true || false'             default = null;
-  //         embeds    --> @observable embeds='' || 'equipmentattributes'    default = null;
-  //         paging    --> @observable pageNumber='';                        default = null;
-  //         paging    --> @observable pageSize='';                          default = null;
-
   render() {
     const { pathname } = this.props.location
-    const { equipment: store } = this.props;
-    const renderList = store.additionalEquipments.length > 0
-      ? (
-        <AdditionalEquipmentList
-          equipments={store.additionalEquipments}
-          onRemoveAdditionalEquipment={store.onRemoveAdditionalEquipment}
-          onSelect={store.onSelect}
-        />
-      )
-      : <Spinner />
+    const { equipment } = this.props.store;
+
+
+    let renderList;
+    if (equipment.loading) {
+      renderList = <Spinner />
+    }
+    if (equipment.additionalEquipments.length > 0) {
+      renderList = (<AdditionalEquipmentList
+        equipments={equipment.additionalEquipments}
+        onRemoveAdditionalEquipment={equipment.onRemoveAdditionalEquipment}
+        onSelect={equipment.onSelect}
+      />)
+    }
+    else {
+      renderList = <p>There are 0 results find.</p>
+    }
 
     return (
       <div>
         <div className="mx-auto ">
-          <Link
-            to={`${pathname}/add`}
-            className="btn btn-info  d-inline mr-4"
-          >Add additional equipment</Link>
+          <SearchBox />
+          <Sorting />
         </div>
         {renderList}
+        <hr />
+        <Link
+          to={`${pathname}/add`}
+          className="btn btn-info  d-inline mr-4"
+        >Add additional equipment</Link>
       </div>
     );
   }

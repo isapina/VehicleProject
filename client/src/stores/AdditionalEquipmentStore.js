@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { action, observable, runInAction } from 'mobx';
-import * as service from '../service/additionalEquipmentService';
+import { action, observable } from 'mobx';
+import * as service from '../services/additionalEquipmentService';
 
 class AdditionalEquipmentStore {
   @observable additionalEquipment = {
@@ -9,6 +9,7 @@ class AdditionalEquipmentStore {
     equipmentname: '',
     equipmentAttributes: []
   }
+  @observable loading = false;
   @observable additionalEquipments = [];
   @observable errors = {};
 
@@ -42,10 +43,18 @@ class AdditionalEquipmentStore {
   @action
   find = async (params) => {
     try {
+      this.loading = true;
       const res = await service.find(params);
-      this.additionalEquipments = res.data.data;
+      if (!_.isEmpty(res.data.data)) {
+        this.additionalEquipments = res.data.data;
+      }
+      else {
+        this.additionalEquipments = [];
+      }
+      this.loading = false;
     } catch (error) {
       this.errors = error.response.data;
+      this.loading = false;
     }
   }
 
