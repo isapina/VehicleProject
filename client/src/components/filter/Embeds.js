@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
 @inject('store')
@@ -12,7 +12,7 @@ class Embeds extends Component {
   render() {
     const { onCheck, embeds } = this.props.store.filter;
     const renderIncludes = _.map(embeds, embed => (
-      <div className="form-check mb-4" key={embed.name}>
+      <div className="form-check  w-25" key={embed.name}>
         <input
           type="checkbox"
           className="form-check-input"
@@ -28,9 +28,9 @@ class Embeds extends Component {
       </div>
     ));
     return (
-      <Fragment>
+      <div className="border form-inline w-50">
         {renderIncludes}
-      </Fragment>
+      </div>
     );
   }
 };

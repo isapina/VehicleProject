@@ -9,7 +9,7 @@ class AdditionalEquipmentList extends Component {
       <tr
         key={equipment.id}>
         <td>{equipment.name}</td>
-        <td>{equipment.description}</td>
+        <td style={{ maxWidth: '700px' }}>{equipment.description}</td>
         <td>
           {
             _.map(equipment.equipmentAttributes, attr => (
@@ -42,7 +42,7 @@ class AdditionalEquipmentList extends Component {
         <thead className="thead-dark">
           <tr>
             <th>Name</th>
-            <th>Description</th>
+            <th style={{ maxWidth: '700px' }}>Description</th>
             <th>Attributes</th>
             <th></th>
           </tr>
