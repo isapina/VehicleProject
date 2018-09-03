@@ -4,6 +4,12 @@ import { observer, inject } from 'mobx-react';
 @inject('store')
 @observer
 class SearchBox extends Component {
+  handleKeyPress = (e) => {
+    if (e.charCode === 13) {
+      this.props.store.equipment.find(this.props.store.filter.queryString);
+    }
+  }
+
   render() {
     const { equipment, filter } = this.props.store;
     return (
@@ -15,9 +21,14 @@ class SearchBox extends Component {
           value={filter.searchTerm}
           name="searchTerm"
           onChange={filter.onChange}
+          onKeyPress={this.handleKeyPress}
         />
         <div className="input-group-append">
-          <button className="btn btn-outline-secondary" type="button" onClick={() => equipment.find(filter.queryString)}>Search...</button>
+          <button
+            className="btn btn-outline-secondary"
+            type="button"
+            onClick={() => equipment.find(filter.queryString)}
+          >Search...</button>
         </div>
       </div>
     );

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 const EquipmentAttributeList = (props) => {
   const attributes = _.map(props.attributes, attribute => {
@@ -22,7 +23,7 @@ const EquipmentAttributeList = (props) => {
 
   return (
     <Fragment >
-      <h6>Equipment attributes currently in list</h6>
+      <h6>Equipment attributes currently in list: {props.attributes.length}</h6>
       <table className="table">
         <thead>
           <tr>
@@ -35,6 +36,11 @@ const EquipmentAttributeList = (props) => {
       </table>
     </Fragment>
   );
+};
+
+EquipmentAttributeList.propTypes = {
+  attributes: PropTypes.array.isRequired,
+  removeFromList: PropTypes.func.isRequired
 };
 
 export default EquipmentAttributeList;

@@ -18,6 +18,7 @@ const EquipmentAttribute = (props) => (
 EquipmentAttribute.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string,
+  error: PropTypes.string
 };
 
 export default EquipmentAttribute;

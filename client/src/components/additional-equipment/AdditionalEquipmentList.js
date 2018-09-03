@@ -56,7 +56,8 @@ class AdditionalEquipmentList extends Component {
 
 AdditionalEquipmentList.propTypes = {
   equipments: PropTypes.array.isRequired,
-  onRemoveAdditionalEquipment: PropTypes.func.isRequired
+  onRemoveAdditionalEquipment: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired
 }
 
 export default withRouter(AdditionalEquipmentList);
