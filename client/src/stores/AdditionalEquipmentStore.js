@@ -106,6 +106,7 @@ class AdditionalEquipmentStore {
     this.additionalEquipment.description = '';
     this.additionalEquipment.equipmentname = '';
     this.additionalEquipment.equipmentAttributes = [];
+    this.additionalEquipments = [];
     this.errors = {};
   }
 }
