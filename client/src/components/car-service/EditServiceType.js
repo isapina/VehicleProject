@@ -11,7 +11,6 @@ import ServiceTypeCheckbox from './ServiceTypeCheckbox';
 class EditServiceType extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-    console.log(id);
     this.props.store.serviceType.findOne(id);
   }
 
@@ -19,7 +18,7 @@ class EditServiceType extends Component {
     e.preventDefault();
     const id = this.props.match.params.id;
     await this.props.store.serviceType.updateServiceType(id)
-    this.props.history.push('/car-service');
+    this.props.history.push('/car-service-type');
   }
 
   render() {
