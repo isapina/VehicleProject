@@ -6,6 +6,9 @@ import App from './App';
 import { Provider } from 'mobx-react';
 import rootStore from './stores/rootStore';
 
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
+
 const jsx = (
   <Provider store={rootStore} >
     <App />

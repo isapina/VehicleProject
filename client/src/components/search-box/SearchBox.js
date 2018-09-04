@@ -24,7 +24,7 @@ class SearchBox extends Component {
           onChange={filter.onChange}
           onKeyPress={this.handleKeyPress}
         />
-        <div className="input-group-append">
+        <div >
           <button
             className="btn btn-outline-secondary"
             type="button"

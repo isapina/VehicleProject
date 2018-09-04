@@ -33,11 +33,12 @@ class AdditionalEquipments extends Component {
       renderList = <Spinner />
     }
     if (equipment.additionalEquipments.length > 0) {
-      renderList = (<AdditionalEquipmentList
-        equipments={equipment.additionalEquipments}
-        onRemoveAdditionalEquipment={equipment.onRemoveAdditionalEquipment}
-        onSelect={equipment.onSelect}
-      />)
+      renderList = (
+        <AdditionalEquipmentList
+          equipments={equipment.additionalEquipments}
+          onRemoveAdditionalEquipment={equipment.onRemoveAdditionalEquipment}
+          onSelect={equipment.onSelect}
+        />)
     }
     else {
       renderList = <p>Sorry, we couldn't find any result(s) matching.</p>

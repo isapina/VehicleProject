@@ -65,7 +65,6 @@ class CarServices extends Component {
           to={`${pathname}/add`}
           className="btn btn-info  d-inline mr-4"
         >Add service type</Link>
-        <button type="button" className="btn btn-secondary btn-sm" onClick={this.loadServiceTypes}>Show service types</button>
         <hr />
       </div>
     );
