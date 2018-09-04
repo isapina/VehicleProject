@@ -49,7 +49,7 @@ const ServiceTypeList = ({
     <table className="table mt-3">
       <thead className="thead-dark">
         <tr>
-          <th>Name</th>
+          <th style={{ minWidth: '120px' }}>Name</th>
           <th>Air filter</th>
           <th>Atf</th>
           <th>Brake fluid changed</th>
@@ -66,7 +66,7 @@ const ServiceTypeList = ({
           <th>Tire filler bottle</th>
           <th>Tire pressure sensors</th>
           <th>Toothed belt</th>
-          <th></th>
+          <th style={{ minWidth: '145px' }}></th>
         </tr>
         {renderList}
       </thead>

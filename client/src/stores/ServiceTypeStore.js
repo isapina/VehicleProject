@@ -32,7 +32,7 @@ class ServiceTypeStore {
       await service.save([this.serviceType]);
       this.refreshStateToInitialValue();
 
-      history.push('/car-service');
+      history.push('/car-service-type');
     } catch (error) {
       this.errors = error.response.data;
     }
@@ -98,7 +98,7 @@ class ServiceTypeStore {
 
   @action
   onSelect = (id, history) => {
-    history.push(`/car-service/service-types/${id}`);
+    history.push(`/car-service-type/${id}`);
   }
 
   @action

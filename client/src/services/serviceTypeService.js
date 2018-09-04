@@ -15,7 +15,7 @@ export const save = async (data) => {
 }
 
 export const update = async (id, data) => {
-  return await axios.post(`${rootURL}/${id}`, data);
+  return await axios.put(`${rootURL}/${id}`, data);
 }
 
 export const remove = async (id) => {

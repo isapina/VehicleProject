@@ -8,10 +8,18 @@ import ServiceTypeCheckbox from './ServiceTypeCheckbox';
 
 @inject('store')
 @observer
-class AddServiceType extends Component {
+class EditServiceType extends Component {
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    console.log(id);
+    this.props.store.serviceType.findOne(id);
+  }
+
   onSubmit = async (e) => {
     e.preventDefault();
-    await this.props.store.serviceType.saveServiceType(this.props.history);
+    const id = this.props.match.params.id;
+    await this.props.store.serviceType.updateServiceType(id)
+    this.props.history.push('/car-service');
   }
 
   render() {
@@ -130,4 +138,4 @@ class AddServiceType extends Component {
   }
 };
 
-export default withRouter(AddServiceType);
+export default withRouter(EditServiceType);

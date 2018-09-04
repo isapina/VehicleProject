@@ -7,6 +7,10 @@ import ServiceTypeList from './ServiceTypeList';
 @inject('store')
 @observer
 class CarServices extends Component {
+  componentDidMount() {
+    this.props.store.serviceType.refreshStateToInitialValue();
+  }
+
   loadServiceTypes = async () => {
     await this.props.store.serviceType.find();
   }
@@ -21,7 +25,7 @@ class CarServices extends Component {
         CarService
         <hr />
         <Link
-          to={`${pathname}/service-type/add`}
+          to={`${pathname}/add`}
           className="btn btn-info  d-inline mr-4"
         >Add service type</Link>
         <button type="button" className="btn btn-secondary btn-sm" onClick={this.loadServiceTypes}>Show service types</button>
