@@ -56,7 +56,7 @@ class AdditionalEquipments extends Component {
 
     return (
       <div>
-        <SearchBox />
+        <SearchBox placeholder="Search by Name or Description..." />
         <button name="toggleFilters" type="button" className="btn btn-outline-secondary mb-1" onClick={this.toggleFilters}>{showHideFilters}</button>
         {filters}
         {renderList}

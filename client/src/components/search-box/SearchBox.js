@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import PropTypes from 'prop-types';
 
 @inject('store')
 @observer
@@ -17,7 +18,7 @@ class SearchBox extends Component {
         <input
           type="text"
           className="form-control"
-          placeholder="Search by Name or description"
+          placeholder={this.props.placeholder}
           value={filter.searchTerm}
           name="searchTerm"
           onChange={filter.onChange}
@@ -34,5 +35,9 @@ class SearchBox extends Component {
     );
   }
 };
+
+SearchBox.propTypes = {
+  placeholder: PropTypes.string
+}
 
 export default SearchBox;
