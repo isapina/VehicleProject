@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 import AdditionalEquipmentList from './AdditionalEquipmentList';
 import Spinner from '../common/Spinner';
 import Sorting from '../filter/Sorting';
-import sortingOptions from '../filter/sortingOptions';
+import additionalEquipmentSortingOptions from '../filter/additionalEquipmentSortingOptions';
 import Embeds from '../filter/Embeds';
 import additionalEquipmentEmbeds from '../filter/additionalEquipmentEmbeds';
 import SearchBox from '../search-box/SearchBox';
@@ -46,7 +46,7 @@ class AdditionalEquipments extends Component {
     const filters = !this.state.toggleFilters
       ? (
         <div className="d-flex inline-flex">
-          <Sorting sortingOptions={sortingOptions} />
+          <Sorting sortingOptions={additionalEquipmentSortingOptions} />
           <Embeds embeds={additionalEquipmentEmbeds} />
         </div>
       )

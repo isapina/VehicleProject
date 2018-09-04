@@ -20,9 +20,9 @@ class Embeds extends Component {
           value={embed.value}
           checked={embed.value}
           onChange={onCheck}
-          id="current"
+          id={embed.name}
         />
-        <label htmlFor="current" className="form-check-label">
+        <label htmlFor={embed.name} className="form-check-label">
           {embed.label}
         </label>
       </div>

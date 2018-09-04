@@ -2,7 +2,7 @@ import axios from '../axios';
 
 const rootURL = "/api/additional-equipments";
 
-export const find = async (queryString) => {
+export const find = async (queryString = '') => {
   return await axios.get(`${rootURL}${queryString}`);
 }
 

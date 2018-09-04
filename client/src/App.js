@@ -23,7 +23,7 @@ class App extends Component {
               <Route path="/additional-equipment/add" component={AddAdditionalEquipment} exact />
               <Route path="/additional-equipment/:id" component={EditAdditionalEquipment} exact />
               <Route path="/additional-equipment" component={AdditionalEquipments} exact />
-              <Route path="/car-service/add" component={AddServiceType} exact />
+              <Route path="/car-service/service-type/add" component={AddServiceType} exact />
               <Route path="/car-service" component={CarServices} exact />
             </Switch>
           </div>

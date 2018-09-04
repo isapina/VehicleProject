@@ -42,9 +42,7 @@ class ServiceTypeStore {
   findOne = async (id, embeds) => {
     try {
       const res = await service.findOne(id, embeds);
-      this.serviceType = _.pick(res.data.data[0], ['name', 'oilChangeService', 'intervalService', 'inspectionService', 'brakeFluidChanged', 'longLifeOilUsed',
-        'atf', 'dsgOilAndFilter', 'naturalGasTankAndPipelines', 'haldexCouplingOil', 'fuelFilter', 'airFilter', 'tirePressureSensors', 'tireFillerBottle', 'dustAndPollenFilter', 'toothedBelt', 'sparkPlugs']);
-
+      this.serviceType = res.data;
     } catch (error) {
       this.errors = error.response.data;
     }
@@ -101,6 +99,11 @@ class ServiceTypeStore {
   @action
   onSelect = (id, history) => {
     history.push(`/car-service/service-types/${id}`);
+  }
+
+  @action
+  onCheck = (e) => {
+    this.serviceType[e.target.name] = !this.serviceType[e.target.name];
   }
 
   @action
