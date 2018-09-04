@@ -8,6 +8,8 @@ import Landing from './components/layout/Landing';
 import AdditionalEquipments from './components/additional-equipment/AdditionalEquipments';
 import AddAdditionalEquipment from './components/additional-equipment/AddAdditionalEquipment';
 import EditAdditionalEquipment from './components/additional-equipment/EditAdditionalEquipment';
+import AddServiceType from './components/car-service/AddServiceType';
+import CarService from './components/car-service/CarService';
 
 class App extends Component {
   render() {
@@ -21,6 +23,8 @@ class App extends Component {
               <Route path="/additional-equipment/add" component={AddAdditionalEquipment} exact />
               <Route path="/additional-equipment/:id" component={EditAdditionalEquipment} exact />
               <Route path="/additional-equipment" component={AdditionalEquipments} exact />
+              <Route path="/car-service/add" component={AddServiceType} exact />
+              <Route path="/car-service" component={CarService} exact />
             </Switch>
           </div>
           <Footer />

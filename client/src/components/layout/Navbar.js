@@ -20,6 +20,11 @@ class Navbar extends Component {
                   AdditionalEquipment
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/car-service" className="nav-link">
+                  ServiceType
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
