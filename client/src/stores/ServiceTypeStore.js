@@ -20,7 +20,9 @@ class ServiceTypeStore {
     tireFillerBottle: false,
     dustAndPollenFilter: false,
     toothedBelt: false,
-    sparkPlugs: false
+    sparkPlugs: false,
+    serviceIntervals: [],
+    carServiceHistories: []
   }
   @observable loading = false;
   @observable serviceTypes = [];

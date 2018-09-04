@@ -12,7 +12,7 @@ class Embeds extends Component {
   render() {
     const { onCheck, embeds } = this.props.store.filter;
     const renderIncludes = _.map(embeds, embed => (
-      <div className="form-check  w-25" key={embed.name}>
+      <div className="form-check  w-50 d-flex justify-content-start" key={embed.name}>
         <input
           type="checkbox"
           className="form-check-input"
@@ -28,7 +28,7 @@ class Embeds extends Component {
       </div>
     ));
     return (
-      <div className="border form-inline w-50">
+      <div className="border form-inline w-50 p-2">
         {renderIncludes}
       </div>
     );

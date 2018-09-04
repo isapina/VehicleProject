@@ -7,12 +7,12 @@ import PropTypes from 'prop-types';
 class SearchBox extends Component {
   handleKeyPress = (e) => {
     if (e.charCode === 13) {
-      this.props.store.equipment.find(this.props.store.filter.queryString);
+      this.props.onSearch(this.props.store.filter.queryString);
     }
   }
 
   render() {
-    const { equipment, filter } = this.props.store;
+    const { filter } = this.props.store;
     return (
       <div className="input-group mb-3">
         <input
@@ -28,7 +28,7 @@ class SearchBox extends Component {
           <button
             className="btn btn-outline-secondary"
             type="button"
-            onClick={() => equipment.find(filter.queryString)}
+            onClick={() => this.props.onSearch(filter.queryString)}
           >Search...</button>
         </div>
       </div>
@@ -37,6 +37,7 @@ class SearchBox extends Component {
 };
 
 SearchBox.propTypes = {
+  onSearch: PropTypes.func.isRequired,
   placeholder: PropTypes.string
 }
 
