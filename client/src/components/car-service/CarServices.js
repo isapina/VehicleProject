@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class CarService extends Component {
+class CarServices extends Component {
   render() {
     const { pathname } = this.props.location;
     return (
@@ -17,4 +17,4 @@ class CarService extends Component {
   }
 };
 
-export default CarService;
+export default CarServices;

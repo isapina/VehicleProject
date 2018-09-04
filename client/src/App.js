@@ -9,7 +9,7 @@ import AdditionalEquipments from './components/additional-equipment/AdditionalEq
 import AddAdditionalEquipment from './components/additional-equipment/AddAdditionalEquipment';
 import EditAdditionalEquipment from './components/additional-equipment/EditAdditionalEquipment';
 import AddServiceType from './components/car-service/AddServiceType';
-import CarService from './components/car-service/CarService';
+import CarServices from './components/car-service/CarServices';
 
 class App extends Component {
   render() {
@@ -24,7 +24,7 @@ class App extends Component {
               <Route path="/additional-equipment/:id" component={EditAdditionalEquipment} exact />
               <Route path="/additional-equipment" component={AdditionalEquipments} exact />
               <Route path="/car-service/add" component={AddServiceType} exact />
-              <Route path="/car-service" component={CarService} exact />
+              <Route path="/car-service" component={CarServices} exact />
             </Switch>
           </div>
           <Footer />
