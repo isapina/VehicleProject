@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 @inject('store')
 @observer
 class Embeds extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.store.filter.fillEmbeds(this.props.embeds);
   }
 

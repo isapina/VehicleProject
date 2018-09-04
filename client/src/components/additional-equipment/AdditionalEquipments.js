@@ -14,7 +14,7 @@ import SearchBox from '../search-box/SearchBox';
 @observer
 class AdditionalEquipments extends Component {
   state = {
-    toggleFilters: false
+    toggleFilters: true
   }
 
   componentDidMount() {
