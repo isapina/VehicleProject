@@ -91,10 +91,10 @@ class ServiceTypeList extends Component {
         </table>
         <RemoveModal
           isOpen={this.state.isOpen}
-          title={`Remove ' ${this.state.name} ' ?`}
+          title={`Remove ${this.state.name}?`}
           handleCancel={this.handleCancel}
           handleRemove={this.handleRemove}
-          info="This action is irrevertable, continue with cautious."
+          info="This action is irreversible, continue with cautious."
         />
       </Fragment>
     );

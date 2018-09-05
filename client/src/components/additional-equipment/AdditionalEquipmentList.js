@@ -8,13 +8,13 @@ import RemoveModal from '../common/RemoveModal';
 
 class AdditionalEquipmentList extends Component {
   state = {
-    isOpen: false,
+    isModalOpen: false,
     id: null,
     name: ''
   }
 
   showModal = (element) => {
-    this.setState({ isOpen: true, id: element.id, name: element.name });
+    this.setState({ isModalOpen: true, id: element.id, name: element.name });
   }
 
   handleRemove = async () => {
@@ -24,7 +24,7 @@ class AdditionalEquipmentList extends Component {
   }
 
   handleCancel = () => {
-    this.setState({ isOpen: false, id: null, name: '' });
+    this.setState({ isModalOpen: false, id: null, name: '' });
   }
 
   render() {
@@ -74,11 +74,11 @@ class AdditionalEquipmentList extends Component {
           </thead>
         </table>
         <RemoveModal
-          isOpen={this.state.isOpen}
-          title={`Remove ' ${this.state.name} ' ?`}
+          isOpen={this.state.isModalOpen}
+          title={`Remove ${this.state.name} ?`}
           handleCancel={this.handleCancel}
           handleRemove={this.handleRemove}
-          info="This action is irrevertable, continue with cautious."
+          info="This action is irreversible, continue with cautious."
         />
       </Fragment>
 

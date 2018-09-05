@@ -22,7 +22,7 @@ const RemoveModal = (props) => (
   >
     <div className="bg-dark text-white p-5">
       <h3 className="text-center p-2">{props.title}</h3>
-      <h5 className="text-muted">{props.info}</h5>
+      <h5 className="text-muted"><i class="fas fa-exclamation-triangle"></i> {props.info}</h5>
       <div className="d-flex justify-content-around">
         <button
           className="btn btn-outline-danger"

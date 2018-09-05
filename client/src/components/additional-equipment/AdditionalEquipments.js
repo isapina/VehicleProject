@@ -17,10 +17,6 @@ class AdditionalEquipments extends Component {
     toggleFilters: true
   }
 
-  componentDidMount() {
-    this.props.store.equipment.refreshStateToInitialValue();
-  }
-
   toggleFilters = () => {
     this.setState(prevState => ({ toggleFilters: !prevState.toggleFilters }))
   }
