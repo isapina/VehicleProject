@@ -17,12 +17,12 @@ class Navbar extends Component {
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to="/additional-equipment" className="nav-link">
-                  AdditionalEquipment
+                  Additional equipment
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/car-service-type" className="nav-link">
-                  ServiceType
+                <Link to="/car-service" className="nav-link">
+                  Car service
                 </Link>
               </li>
             </ul>

@@ -8,8 +8,10 @@ import Landing from './components/layout/Landing';
 import AdditionalEquipments from './components/additional-equipment/AdditionalEquipments';
 import AddAdditionalEquipment from './components/additional-equipment/AddAdditionalEquipment';
 import EditAdditionalEquipment from './components/additional-equipment/EditAdditionalEquipment';
-import AddServiceType from './components/car-service/AddServiceType';
-import EditServiceType from './components/car-service/EditServiceType';
+import AddServiceType from './components/car-service/service-type/AddServiceType';
+import EditServiceType from './components/car-service/service-type/EditServiceType';
+import ServiceTypes from './components/car-service/service-type/ServiceTypes';
+import ServiceIntervals from './components/car-service/service-interval/ServiceIntervals';
 import CarServices from './components/car-service/CarServices';
 
 class App extends Component {
@@ -26,7 +28,9 @@ class App extends Component {
               <Route path="/additional-equipment" component={AdditionalEquipments} exact />
               <Route path="/car-service-type/add" component={AddServiceType} exact />
               <Route path="/car-service-type/:id" component={EditServiceType} exact />
-              <Route path="/car-service-type" component={CarServices} exact />
+              <Route path="/car-service-type" component={ServiceTypes} exact />
+              <Route path="/car-service-interval" component={ServiceIntervals} exact />
+              <Route path="/car-service" component={CarServices} exact />
             </Switch>
           </div>
           <Footer />

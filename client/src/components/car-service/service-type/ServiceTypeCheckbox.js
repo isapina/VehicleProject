@@ -8,10 +8,10 @@ const ServiceTypeCheckbox = ({
   label,
   disabled
 }) => (
-    <div className="form-check  w-50  d-flex justify-content-start" >
+    <div className="custom-control custom-checkbox  w-50  d-flex justify-content-start" >
       <input
         type="checkbox"
-        className="form-check-input"
+        className="custom-control-input"
         name={name}
         value={value}
         checked={value}
@@ -19,7 +19,7 @@ const ServiceTypeCheckbox = ({
         id={name}
         disabled={disabled}
       />
-      <label htmlFor={name} className="form-check-label">
+      <label htmlFor={name} className="custom-control-label">
         {label}
       </label>
     </div>

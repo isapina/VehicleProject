@@ -42,6 +42,7 @@ const PreviewServiceType = ({ serviceType, isOpen, handleCancel }) => (
         <PreviewDisabledCheckbox value={serviceType.tirePressureSensors} label="Tire pressire sensors" />
         <PreviewDisabledCheckbox value={serviceType.toothedBelt} label="Toothed belt" />
       </div>
+      <p className="text-muted text-center">Click outside the preview or press esc to close.</p>
     </div>
 
   </Modal >

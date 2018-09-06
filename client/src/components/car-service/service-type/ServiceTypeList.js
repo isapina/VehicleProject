@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import RemoveModal from '../common/RemoveModal';
+import RemoveModal from '../../common/RemoveModal';
 import PreviewServiceType from './PreviewServiceType';
 import { Link } from 'react-router-dom';
 
@@ -93,7 +93,7 @@ class ServiceTypeList extends Component {
         <div className="row">
           <Link
             to={`${pathname}/add`}
-            className="btn btn-info w-75 m-auto"
+            className="btn btn-primary w-75 m-auto"
           >Add new service type</Link>
         </div>
 

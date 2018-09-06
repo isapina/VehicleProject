@@ -114,6 +114,7 @@ class ServiceTypeStore {
     this.serviceType.oilChangeService = false;
     this.serviceType.ntervalService = false;
     this.serviceType.inspectionService = false;
+    this.serviceType.intervalService = false;
     this.serviceType.brakeFluidChanged = false;
     this.serviceType.longLifeOilUsed = false;
     this.serviceType.atf = false;

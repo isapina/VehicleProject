@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Link, withRouter } from 'react-router-dom';
 
-import TextFieldGroup from '../common/TextFieldGroup';
+import TextFieldGroup from '../../common/TextFieldGroup';
 import ServiceTypeCheckbox from './ServiceTypeCheckbox';
 
 @inject('store')
