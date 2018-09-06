@@ -5,9 +5,9 @@ import { inject, observer } from 'mobx-react';
 import AdditionalEquipmentList from './AdditionalEquipmentList';
 import Spinner from '../common/Spinner';
 import Sorting from '../filter/Sorting';
-import additionalEquipmentSortingOptions from '../filter/additionalEquipmentSortingOptions';
+import additionalEquipmentSortingOptions from './additionalEquipmentSortingOptions';
 import Embeds from '../filter/Embeds';
-import additionalEquipmentEmbeds from '../filter/additionalEquipmentEmbeds';
+import additionalEquipmentEmbeds from './additionalEquipmentEmbeds';
 import SearchBox from '../search-box/SearchBox';
 
 @inject('store')
@@ -15,6 +15,10 @@ import SearchBox from '../search-box/SearchBox';
 class AdditionalEquipments extends Component {
   state = {
     toggleFilters: true
+  }
+
+  componentWillMount() {
+    this.props.store.equipment.refreshStateToInitialValue();
   }
 
   toggleFilters = () => {

@@ -59,7 +59,7 @@ class ServiceTypeStore {
         this.serviceTypes = res.data.data;
       }
       else {
-        this.serviceTypes = [];
+        this.serviceTypes = null;
       }
       this.loading = false;
     } catch (error) {
@@ -127,7 +127,7 @@ class ServiceTypeStore {
     this.serviceType.tireFillerBottle = false;
     this.serviceType.dustAndPollenFilter = false;
     this.serviceType.toothedBelt = false;
-    this.serviceType.sparkPlugs = false
+    this.serviceType.sparkPlugs = false;
     this.serviceTypes = null;
     this.errors = {};
   }

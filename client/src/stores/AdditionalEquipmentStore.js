@@ -49,7 +49,7 @@ class AdditionalEquipmentStore {
         this.additionalEquipments = res.data.data;
       }
       else {
-        this.additionalEquipments = [];
+        this.additionalEquipments = null;
       }
       this.loading = false;
     } catch (error) {

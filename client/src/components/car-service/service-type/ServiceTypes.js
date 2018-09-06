@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import Sorting from '../../filter/Sorting';
 import Embeds from '../../filter/Embeds';
 import SearchBox from '../../search-box/SearchBox';
-import serviceTypeEmbeds from '../../filter/serviceTypeEmbeds';
-import serviceTypeSortingOptions from '../../filter/serviceTypeSortingOptions';
+import serviceTypeEmbeds from './serviceTypeEmbeds';
+import serviceTypeSortingOptions from './serviceTypeSortingOptions';
 import ServiceTypeList from './ServiceTypeList';
 
 @inject('store')

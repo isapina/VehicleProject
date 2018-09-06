@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, runInAction } from 'mobx';
 
 class FilterStore {
   @observable searchTerm = '';
