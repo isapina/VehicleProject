@@ -25,7 +25,7 @@ class ServiceTypeStore {
     carServiceHistories: []
   }
   @observable loading = false;
-  @observable serviceTypes = [];
+  @observable serviceTypes = null;
   @observable errors = {};
 
   @action
@@ -128,7 +128,7 @@ class ServiceTypeStore {
     this.serviceType.dustAndPollenFilter = false;
     this.serviceType.toothedBelt = false;
     this.serviceType.sparkPlugs = false
-    this.serviceTypes = [];
+    this.serviceTypes = null;
     this.errors = {};
   }
 }

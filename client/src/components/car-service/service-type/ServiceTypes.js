@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
 import Sorting from '../../filter/Sorting';
 import Embeds from '../../filter/Embeds';
@@ -30,7 +31,10 @@ class ServiceTypes extends Component {
   render() {
     const { serviceTypes, onSelect, onRemoveServiceType, find } = this.props.store.serviceType;
     let renderList;
-    if (serviceTypes.length > 0) {
+    if (serviceTypes === null) {
+      renderList = '';
+    }
+    else if (serviceTypes.length > 0) {
       renderList = (<ServiceTypeList serviceTypes={serviceTypes} onSelect={onSelect} onRemoveServiceType={onRemoveServiceType} />)
     }
     else {
@@ -50,7 +54,15 @@ class ServiceTypes extends Component {
 
     return (
       <div>
-        Service-type
+        <div className="row m-1">
+          <Link
+            to="/car-service"
+            className="btn btn-light col-sm-2"
+          >
+            <i className="fas fa-chevron-left"></i> Go back
+        </Link>
+          <h3 className="col-sm-10"> Service-type</h3>
+        </div>
         <SearchBox
           placeholder="Search by Name..."
           onSearch={find}

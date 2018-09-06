@@ -28,7 +28,10 @@ class AdditionalEquipments extends Component {
     if (equipment.loading) {
       renderList = <Spinner />
     }
-    if (equipment.additionalEquipments.length > 0) {
+    if (equipment.additionalEquipments === null) {
+      renderList = '';
+    }
+    else if (equipment.additionalEquipments.length > 0) {
       renderList = (
         <AdditionalEquipmentList
           equipments={equipment.additionalEquipments}
@@ -53,6 +56,8 @@ class AdditionalEquipments extends Component {
 
     return (
       <div>
+        <h3 className="text-center"> Additional equipment</h3>
+        <hr />
         <SearchBox
           placeholder="Search by Name or Description..."
           onSearch={equipment.find}

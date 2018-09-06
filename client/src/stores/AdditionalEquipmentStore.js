@@ -10,7 +10,7 @@ class AdditionalEquipmentStore {
     equipmentAttributes: []
   }
   @observable loading = false;
-  @observable additionalEquipments = [];
+  @observable additionalEquipments = null;
   @observable errors = {};
 
   @action
@@ -106,7 +106,7 @@ class AdditionalEquipmentStore {
     this.additionalEquipment.description = '';
     this.additionalEquipment.equipmentname = '';
     this.additionalEquipment.equipmentAttributes = [];
-    this.additionalEquipments = [];
+    this.additionalEquipments = null;
     this.errors = {};
   }
 }
