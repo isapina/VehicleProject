@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Link } from 'react-router-dom';
 
 import Sorting from '../filter/Sorting';
 import Embeds from '../filter/Embeds';
@@ -29,7 +28,6 @@ class CarServices extends Component {
   }
 
   render() {
-    const { pathname } = this.props.location;
     const { serviceTypes, onSelect, onRemoveServiceType, find } = this.props.store.serviceType;
     let renderList;
     if (serviceTypes.length > 0) {
@@ -60,11 +58,6 @@ class CarServices extends Component {
         <button name="toggleFilters" type="button" className="btn btn-outline-secondary mb-1" onClick={this.toggleFilters}>{showHideFilters}</button>
         {filters}
         {renderList}
-        <hr />
-        <Link
-          to={`${pathname}/add`}
-          className="btn btn-info  d-inline mr-4"
-        >Add service type</Link>
         <hr />
       </div>
     );

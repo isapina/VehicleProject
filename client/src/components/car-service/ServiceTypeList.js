@@ -1,14 +1,18 @@
 import _ from 'lodash';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import RemoveModal from '../common/RemoveModal';
+import PreviewServiceType from './PreviewServiceType';
+import { Link } from 'react-router-dom';
 
 class ServiceTypeList extends Component {
   state = {
     isOpen: false,
     id: null,
-    name: ''
+    name: '',
+    isPreviewOpen: false,
+    serviceType: {}
   }
 
   showModal = (element) => {
@@ -25,27 +29,26 @@ class ServiceTypeList extends Component {
     this.setState({ isOpen: false, id: null, name: '' });
   }
 
+  showPreviewModal = (element) => {
+    this.setState({ isPreviewOpen: true, serviceType: element });
+  }
+
+  handlePreviewCancel = () => {
+    this.setState({ isPreviewOpen: false, serviceType: {} });
+  }
+
   render() {
+    const { pathname } = this.props.location;
     const renderList = _.map(this.props.serviceTypes, serviceType => (
-      <tr key={serviceType.id}>
+      <tr key={serviceType.id} className="d-flex justify-content-between">
         <td>{serviceType.name}</td>
-        <td><input type="checkbox" defaultChecked={serviceType.airFilter} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.atf} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.brakeFluidChanged} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.dsgOilAndFilter} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.dustAndPollenFilter} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.fuelFilter} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.haldexCouplingOil} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.inspectionService} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.intervalService} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.longLifeOilUsed} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.naturalGasTankAndPipelines} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.oilChangeService} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.sparkPlugs} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.tireFillerBottle} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.tirePressureSensors} /></td>
-        <td><input type="checkbox" defaultChecked={serviceType.toothedBelt} /></td>
         <td>
+          <button
+            type="button"
+            className="btn btn-outline-primary btn-sm mr-2"
+            onClick={() => this.showPreviewModal(serviceType)}
+          >Preview
+        </button>
           <button
             type="button"
             className="btn btn-outline-danger btn-sm"
@@ -63,44 +66,40 @@ class ServiceTypeList extends Component {
     ));
 
     return (
-      <Fragment>
-        <table className="table mt-3">
-          <thead className="thead-dark">
-            <tr>
-              <th style={{ minWidth: '120px' }}>Name</th>
-              <th>Air filter</th>
-              <th>Atf</th>
-              <th>Brake fluid changed</th>
-              <th>Dsg oil and filter</th>
-              <th>Dust and pollen filter</th>
-              <th>Fuel filter</th>
-              <th>Haldex coupling oil</th>
-              <th>Inspection service</th>
-              <th>Interval service</th>
-              <th>Long life oil used</th>
-              <th>Natural gas tank and pipelines</th>
-              <th>Oil change service</th>
-              <th>Spark plugs</th>
-              <th>Tire filler bottle</th>
-              <th>Tire pressure sensors</th>
-              <th>Toothed belt</th>
-              <th style={{ minWidth: '145px' }}></th>
-            </tr>
-            {renderList}
-          </thead>
-        </table>
-        <RemoveModal
-          isOpen={this.state.isOpen}
-          title={`Remove ${this.state.name}?`}
-          handleCancel={this.handleCancel}
-          handleRemove={this.handleRemove}
-          info="This action is irreversible, continue with cautious."
-        />
-      </Fragment>
+      <div>
+        <div className="row">
+          <table className="table w-75 m-auto">
+            <thead className="thead-dark">
+              <tr>
+                <th>Name</th>
+                <th></th>
+              </tr>
+              {renderList}
+            </thead>
+          </table>
+          <RemoveModal
+            isOpen={this.state.isOpen}
+            title={`Remove ${this.state.name}?`}
+            handleCancel={this.handleCancel}
+            handleRemove={this.handleRemove}
+            info="This action is irreversible, continue with cautious."
+          />
+          <PreviewServiceType
+            isOpen={this.state.isPreviewOpen}
+            handleCancel={this.handlePreviewCancel}
+            serviceType={this.state.serviceType}
+          />
+        </div>
+        <div className="row">
+          <Link
+            to={`${pathname}/add`}
+            className="btn btn-info w-75 m-auto"
+          >Add new service type</Link>
+        </div>
+
+      </div>
     );
   }
-
-
 };
 
 ServiceTypeList.propTypes = {

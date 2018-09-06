@@ -17,9 +17,7 @@ const EquipmentAttributeList = (props) => {
         </td>
       </tr>
     )
-  }
-
-  );
+  });
 
   return (
     <Fragment >

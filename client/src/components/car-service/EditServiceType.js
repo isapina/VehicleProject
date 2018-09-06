@@ -30,7 +30,6 @@ class EditServiceType extends Component {
     } = this.props.store.serviceType;
     const err = !_.isEmpty(errors) && errors;
 
-
     return (
       <Fragment>
         <Link

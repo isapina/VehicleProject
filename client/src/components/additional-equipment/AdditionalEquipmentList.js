@@ -84,7 +84,6 @@ class AdditionalEquipmentList extends Component {
 
     );
   }
-
 };
 
 AdditionalEquipmentList.propTypes = {
