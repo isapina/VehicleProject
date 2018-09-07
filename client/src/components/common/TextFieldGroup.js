@@ -10,7 +10,9 @@ const TextFieldGroup = ({
   info,
   type,
   onChange,
-  disabled
+  disabled,
+  min,
+  max
 }) => {
   return (
     <div className="form-group">
@@ -22,6 +24,8 @@ const TextFieldGroup = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
+        min={min}
+        max={max}
       />
       {info && <small className="form-text text-muted">{info}</small>}
       {error && <div className="invalid-feedback">{error}</div>}
@@ -32,12 +36,14 @@ const TextFieldGroup = ({
 TextFieldGroup.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   error: PropTypes.string,
   info: PropTypes.string,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  min: PropTypes.number,
+  max: PropTypes.number,
 };
 
 TextFieldGroup.defaultProps = {

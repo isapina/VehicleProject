@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import ServiceTypeCheckbox from './ServiceTypeCheckbox';
+import GoBackLink from '../../common/GoBackLink';
 
 @inject('store')
 @observer
@@ -26,12 +27,7 @@ class AddServiceType extends Component {
 
     return (
       <Fragment>
-        <Link
-          to="/car-service-type"
-          className="btn btn-light mb-4"
-        >
-          <i className="fas fa-chevron-left"></i> Go back
-        </Link>
+        <GoBackLink to="/car-service-type" />
         <form onSubmit={this.onSubmit}>
           <h4>Add Service Type</h4>
           <TextFieldGroup

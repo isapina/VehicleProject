@@ -12,6 +12,8 @@ import AddServiceType from './components/car-service/service-type/AddServiceType
 import EditServiceType from './components/car-service/service-type/EditServiceType';
 import ServiceTypes from './components/car-service/service-type/ServiceTypes';
 import ServiceIntervals from './components/car-service/service-interval/ServiceIntervals';
+import AddServiceInterval from './components/car-service/service-interval/AddServiceInterval';
+import EditServiceInterval from './components/car-service/service-interval/EditServiceInterval';
 import CarServices from './components/car-service/CarServices';
 
 class App extends Component {
@@ -29,6 +31,8 @@ class App extends Component {
               <Route path="/car-service-type/add" component={AddServiceType} exact />
               <Route path="/car-service-type/:id" component={EditServiceType} exact />
               <Route path="/car-service-type" component={ServiceTypes} exact />
+              <Route path="/car-service-interval/add" component={AddServiceInterval} exact />
+              <Route path="/car-service-interval/:id" component={EditServiceInterval} exact />
               <Route path="/car-service-interval" component={ServiceIntervals} exact />
               <Route path="/car-service" component={CarServices} exact />
             </Switch>

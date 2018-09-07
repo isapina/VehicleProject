@@ -1,12 +1,13 @@
 import _ from 'lodash';
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import EquipmentAttribute from './EquipmentAttribute';
 import EquipmentAttributeList from './EquipmentAttributeList';
+import GoBackLink from '../common/GoBackLink';
 
 @inject('store')
 @observer
@@ -28,12 +29,7 @@ class AddAdditionalEquipment extends Component {
 
     return (
       <Fragment>
-        <Link
-          to="/additional-equipment"
-          className="btn btn-light mb-4"
-        >
-          <i className="fas fa-chevron-left"></i> Go back
-        </Link>
+        <GoBackLink to="/additional-equipment" />
         <form onSubmit={this.onSubmit}>
           <h4>Add Additional Equipment</h4>
           <TextFieldGroup

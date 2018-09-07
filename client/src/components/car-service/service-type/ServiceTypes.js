@@ -8,6 +8,7 @@ import SearchBox from '../../search-box/SearchBox';
 import serviceTypeEmbeds from './serviceTypeEmbeds';
 import serviceTypeSortingOptions from './serviceTypeSortingOptions';
 import ServiceTypeList from './ServiceTypeList';
+import GoBackLink from '../../common/GoBackLink';
 
 @inject('store')
 @observer
@@ -29,6 +30,7 @@ class ServiceTypes extends Component {
   }
 
   render() {
+    const { pathname } = this.props.location;
     const { serviceTypes, onSelect, onRemoveServiceType, find } = this.props.store.serviceType;
     let renderList;
     if (serviceTypes === null) {
@@ -55,12 +57,7 @@ class ServiceTypes extends Component {
     return (
       <div>
         <div className="row m-1">
-          <Link
-            to="/car-service"
-            className="btn btn-light col-sm-2"
-          >
-            <i className="fas fa-chevron-left"></i> Go back
-        </Link>
+          <GoBackLink to="/car-service" />
           <h3 className="col-sm-10"> Service-type</h3>
         </div>
         <SearchBox
@@ -71,6 +68,12 @@ class ServiceTypes extends Component {
         {filters}
         {renderList}
         <hr />
+        <div className="row">
+          <Link
+            to={`${pathname}/add`}
+            className="btn btn-primary col-md-2 ml-3"
+          >Add new service type</Link>
+        </div>
       </div>
     );
   }

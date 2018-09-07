@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import RemoveModal from '../../common/RemoveModal';
 import PreviewServiceType from './PreviewServiceType';
-import { Link } from 'react-router-dom';
 
 class ServiceTypeList extends Component {
   state = {
@@ -38,7 +37,6 @@ class ServiceTypeList extends Component {
   }
 
   render() {
-    const { pathname } = this.props.location;
     const renderList = _.map(this.props.serviceTypes, serviceType => (
       <tr key={serviceType.id} className="d-flex justify-content-between">
         <td>{serviceType.name}</td>
@@ -90,13 +88,6 @@ class ServiceTypeList extends Component {
             serviceType={this.state.serviceType}
           />
         </div>
-        <div className="row">
-          <Link
-            to={`${pathname}/add`}
-            className="btn btn-primary w-75 m-auto"
-          >Add new service type</Link>
-        </div>
-
       </div>
     );
   }

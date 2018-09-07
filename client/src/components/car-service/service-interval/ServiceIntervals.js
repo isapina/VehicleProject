@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
 import ServiceIntervalList from './ServiceIntervalList';
 import Spinner from '../../common/Spinner';
@@ -9,6 +9,7 @@ import Embeds from '../../filter/Embeds';
 import SearchBox from '../../search-box/SearchBox';
 import serviceIntervalSortingOptions from './serviceIntervalSortingOptions';
 import serviceIntervalEmbeds from './serviceIntervalEmbeds';
+import GoBackLink from '../../common/GoBackLink';
 
 @inject('store')
 @observer
@@ -26,7 +27,7 @@ class ServiceIntervals extends Component {
   }
 
   render() {
-    const { pathname } = this.props.location
+    const { pathname } = this.props.location;
     const { serviceInterval } = this.props.store;
     let renderList;
     if (serviceInterval.loading) {
@@ -60,7 +61,10 @@ class ServiceIntervals extends Component {
 
     return (
       <div>
-        <h3 className="text-center">Service intervals</h3>
+        <div className="row m-1">
+          <GoBackLink to="/car-service" />
+          <h3 className="col-sm-10"> Service-interval</h3>
+        </div>
         <hr />
         <SearchBox
           placeholder="Search by Name or Description..."

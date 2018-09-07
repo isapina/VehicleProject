@@ -4,31 +4,19 @@ import * as service from '../services/serviceIntervalService';
 
 class ServiceIntervalStore {
   @observable serviceInterval = {
-    maximumMileage: null,
-    vehicleModelId: null,
-    serviceTypeId: null
+    maximumMileage: '',
+    vehicleModelId: '',
+    serviceTypeId: ''
   }
   @observable loading = false;
   @observable serviceIntervals = null;
   @observable errors = {};
 
   @action
-  saveServiceInterval = async (history) => {
-    try {
-      await service.save([this.serviceInterval]);
-      this.refreshStateToInitialValue();
-
-      history.push('/car-service-interval');
-    } catch (error) {
-      this.errors = error.response.data;
-    }
-  }
-
-  @action
   findOne = async (id, embeds) => {
     try {
       const res = await service.findOne(id, embeds);
-      this.serviceInterval = res.data;
+      this.serviceInterval = _.pick(res.data, ['maximumMileage', 'vehicleModelId', 'serviceTypeId']);
     } catch (error) {
       this.errors = error.response.data;
     }
@@ -53,9 +41,34 @@ class ServiceIntervalStore {
   }
 
   @action
-  updateServiceInterval = async (id) => {
+  saveServiceInterval = async (history) => {
+    try {
+      this.errors = {};
+      await service.save([this.serviceInterval]);
+      this.refreshStateToInitialValue();
+
+      history.push('/car-service-interval');
+    } catch (error) {
+      if (_.isEmpty(this.serviceInterval.maximumMileage)) {
+        this.errors.maximumMileage = "You need to enter maximum mileage for service interval"
+      }
+      if (_.isEmpty(this.serviceInterval.serviceTypeId)) {
+        this.errors.serviceType = "You need to select service type"
+      }
+      if (_.isEmpty(this.serviceInterval.vehicleModelId)) {
+        this.errors.vehicleModelId = "You need select vehicle model"
+      }
+      if (_.isEmpty(this.serviceInterval.serviceTypeId)) {
+        this.errors.serviceType = "You need to select service type"
+      }
+    }
+  }
+
+  @action
+  updateServiceInterval = async (id, history) => {
     try {
       await service.update(id, this.serviceInterval);
+      history.push('/car-service-interval');
       this.refreshStateToInitialValue();
     } catch (error) {
       this.errors = error.response.data;
@@ -73,26 +86,20 @@ class ServiceIntervalStore {
   }
 
   @action
-  removeFromList = (id) => {
-    _.remove(this.serviceIntervals, e => e.id === id);
-  }
-
-
-  @action
   onChange = (e) => {
     this.serviceInterval[e.target.name] = e.target.value;
   }
 
   @action
-  onSelect = (id, history) => {
-    history.push(`/car-service-interval/${id}`);
+  onCheck = (e) => {
+    this.serviceInterval.serviceTypeId = e.target.id;
   }
 
   @action
   refreshStateToInitialValue = () => {
-    this.serviceInterval.maximumMileage = null;
-    this.serviceInterval.vehicleModelId = null;
-    this.serviceInterval.serviceTypeId = null;
+    this.serviceInterval.maximumMileage = '';
+    this.serviceInterval.vehicleModelId = '';
+    this.serviceInterval.serviceTypeId = '';
     this.serviceIntervals = null;
     this.errors = {};
   }

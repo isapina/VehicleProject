@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import EquipmentAttribute from './EquipmentAttribute';
 import EquipmentAttributeList from './EquipmentAttributeList';
 import Spinner from '../common/Spinner';
-
-// TODO: BACA NEKI ERROR--provjeriti u pon
+import GoBackLink from '../common/GoBackLink';
 
 @inject('store')
 @observer
@@ -82,12 +81,7 @@ class EditAdditionalEquipment extends Component {
 
     return (
       <Fragment>
-        <Link
-          to="/additional-equipment"
-          className="btn btn-light mb-4"
-        >
-          <i className="fas fa-chevron-left"></i> Go back
-        </Link>
+        <GoBackLink to="/additional-equipment" />
         {renderEditView}
       </Fragment>
     );
