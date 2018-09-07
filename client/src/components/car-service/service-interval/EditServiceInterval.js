@@ -5,6 +5,7 @@ import classnames from 'classnames';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import GoBackLink from '../../common/GoBackLink';
+import SubmitButton from '../../common/SubmitButton';
 
 @inject('store')
 @observer
@@ -71,7 +72,7 @@ class EditServiceInterval extends Component {
             {renderServiceTypes}
           </div>
           {err && <div className="invalid-feedback">{err.serviceType || err.message}</div>}
-          <input type="submit" className="btn btn-primary btn-block mt-4" value="Submit" />
+          <SubmitButton />
         </form>
       </div>
     );

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import RemoveButton from '../common/RemoveButton';
 
 const EquipmentAttributeList = (props) => {
   const attributes = _.map(props.attributes, attribute => {
@@ -8,12 +9,7 @@ const EquipmentAttributeList = (props) => {
       <tr key={attribute.id}>
         <td>{attribute.name}</td>
         <td>
-          <button
-            type="button"
-            className="btn btn-outline-danger btn-sm"
-            onClick={() => props.removeFromList(attribute.id)}
-          > Remove
-          </button>
+          <RemoveButton onClick={() => props.removeFromList(attribute.id)} />
         </td>
       </tr>
     )

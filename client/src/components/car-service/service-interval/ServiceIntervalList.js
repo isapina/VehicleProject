@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import RemoveModal from '../../common/RemoveModal';
+import RemoveButton from '../../common/RemoveButton';
+import EditButton from '../../common/EditButton';
 
 class ServiceIntervalList extends Component {
   state = {
@@ -45,14 +47,8 @@ class ServiceIntervalList extends Component {
             : <span className="col-md-3 text-center"></span>
         }
         <span className="col-md-3 text-center">
-          <button
-            className="btn btn-outline-danger btn-sm mr-1"
-            onClick={() => this.showModal(interval)}
-          >Remove</button>
-          <Link
-            className="btn btn-outline-info btn-sm"
-            to={`${pathname}/${interval.id}`}
-          >Edit</Link>
+          <RemoveButton onClick={() => this.showModal(interval)} />
+          <EditButton onClick={() => this.props.history.push(`${pathname}/${interval.id}`)} />
         </span>
         <hr />
       </div>)
@@ -73,7 +69,6 @@ class ServiceIntervalList extends Component {
           handleRemove={this.handleRemove}
           info="This action is irreversible, continue with cautious."
         />
-
       </div>
     );
   }

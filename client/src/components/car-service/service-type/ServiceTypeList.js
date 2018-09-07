@@ -2,8 +2,12 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+
+import RemoveButton from '../../common/RemoveButton';
+import EditButton from '../../common/EditButton';
 import RemoveModal from '../../common/RemoveModal';
 import PreviewServiceType from './PreviewServiceType';
+import PreviewButton from '../../common/PreviewButton';
 
 class ServiceTypeList extends Component {
   state = {
@@ -37,28 +41,14 @@ class ServiceTypeList extends Component {
   }
 
   render() {
+    const { pathname } = this.props.location;
     const renderList = _.map(this.props.serviceTypes, serviceType => (
       <tr key={serviceType.id} className="d-flex justify-content-between">
         <td>{serviceType.name}</td>
         <td>
-          <button
-            type="button"
-            className="btn btn-outline-primary btn-sm mr-2"
-            onClick={() => this.showPreviewModal(serviceType)}
-          >Preview
-        </button>
-          <button
-            type="button"
-            className="btn btn-outline-danger btn-sm"
-            onClick={() => this.showModal(serviceType)}
-          > Remove
-        </button>
-          <button
-            type="button"
-            className="btn btn-outline-info btn-sm ml-2"
-            onClick={() => this.props.onSelect(serviceType.id, this.props.history)}
-          > Edit
-        </button>
+          <PreviewButton onClick={() => this.showPreviewModal(serviceType)} />
+          <RemoveButton onClick={() => this.showModal(serviceType)} />
+          <EditButton onClick={() => this.props.history.push(`${pathname}/${serviceType.id}`)} />
         </td>
       </tr>
     ));

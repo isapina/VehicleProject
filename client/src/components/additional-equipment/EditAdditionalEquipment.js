@@ -8,6 +8,7 @@ import EquipmentAttribute from './EquipmentAttribute';
 import EquipmentAttributeList from './EquipmentAttributeList';
 import Spinner from '../common/Spinner';
 import GoBackLink from '../common/GoBackLink';
+import SubmitButton from '../common/SubmitButton';
 
 @inject('store')
 @observer
@@ -75,7 +76,7 @@ class EditAdditionalEquipment extends Component {
               ? <EquipmentAttributeList attributes={additionalEquipment.equipmentAttributes} removeFromList={removeFromList} />
               : ''
           }
-          <input type="submit" className="btn btn-primary btn-block mt-4" value="Submit" />
+          <SubmitButton />
         </form>
       )
 

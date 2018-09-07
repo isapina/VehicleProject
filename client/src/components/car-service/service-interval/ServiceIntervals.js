@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
 
 import ServiceIntervalList from './ServiceIntervalList';
 import Spinner from '../../common/Spinner';
@@ -10,6 +9,8 @@ import SearchBox from '../../search-box/SearchBox';
 import serviceIntervalSortingOptions from './serviceIntervalSortingOptions';
 import serviceIntervalEmbeds from './serviceIntervalEmbeds';
 import GoBackLink from '../../common/GoBackLink';
+import AddNewLink from '../../common/AddNewLink';
+import ToggleButton from '../../common/ToggleButton';
 
 @inject('store')
 @observer
@@ -27,7 +28,6 @@ class ServiceIntervals extends Component {
   }
 
   render() {
-    const { pathname } = this.props.location;
     const { serviceInterval } = this.props.store;
     let renderList;
     if (serviceInterval.loading) {
@@ -57,8 +57,6 @@ class ServiceIntervals extends Component {
       )
       : '';
 
-    const showHideFilters = !this.state.toggleFilters ? "Hide filters" : "Show filters"
-
     return (
       <div>
         <div className="row m-1">
@@ -70,14 +68,11 @@ class ServiceIntervals extends Component {
           placeholder="Search by Name or Description..."
           onSearch={serviceInterval.find}
         />
-        <button name="toggleFilters" type="button" className="btn btn-outline-secondary mb-1" onClick={this.toggleFilters}>{showHideFilters}</button>
+        <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
         {renderList}
         <hr />
-        <Link
-          to={`${pathname}/add`}
-          className="btn btn-info  d-inline mr-4"
-        >Add service interval</Link>
+        <AddNewLink info="Add service interval" />
       </div>
     );
   }

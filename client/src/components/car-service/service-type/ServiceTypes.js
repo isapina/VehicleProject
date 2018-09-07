@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Link } from 'react-router-dom';
 
 import Sorting from '../../filter/Sorting';
 import Embeds from '../../filter/Embeds';
@@ -9,6 +8,8 @@ import serviceTypeEmbeds from './serviceTypeEmbeds';
 import serviceTypeSortingOptions from './serviceTypeSortingOptions';
 import ServiceTypeList from './ServiceTypeList';
 import GoBackLink from '../../common/GoBackLink';
+import AddNewLink from '../../common/AddNewLink';
+import ToggleButton from '../../common/ToggleButton';
 
 @inject('store')
 @observer
@@ -30,7 +31,6 @@ class ServiceTypes extends Component {
   }
 
   render() {
-    const { pathname } = this.props.location;
     const { serviceTypes, onSelect, onRemoveServiceType, find } = this.props.store.serviceType;
     let renderList;
     if (serviceTypes === null) {
@@ -42,8 +42,6 @@ class ServiceTypes extends Component {
     else {
       renderList = <p>Sorry, we couldn't find any result(s) matching.</p>
     }
-
-    const showHideFilters = !this.state.toggleFilters ? "Hide filters" : "Show filters"
 
     const filters = !this.state.toggleFilters
       ? (
@@ -60,19 +58,13 @@ class ServiceTypes extends Component {
           <GoBackLink to="/car-service" />
           <h3 className="col-sm-10"> Service-type</h3>
         </div>
-        <SearchBox
-          placeholder="Search by Name..."
-          onSearch={find}
-        />
-        <button name="toggleFilters" type="button" className="btn btn-outline-secondary mb-1" onClick={this.toggleFilters}>{showHideFilters}</button>
+        <SearchBox placeholder="Search by Name..." onSearch={find} />
+        <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
         {renderList}
         <hr />
         <div className="row">
-          <Link
-            to={`${pathname}/add`}
-            className="btn btn-primary col-md-2 ml-3"
-          >Add new service type</Link>
+          <AddNewLink info="Add service type" />
         </div>
       </div>
     );

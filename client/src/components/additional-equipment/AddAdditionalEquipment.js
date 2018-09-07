@@ -8,6 +8,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import EquipmentAttribute from './EquipmentAttribute';
 import EquipmentAttributeList from './EquipmentAttributeList';
 import GoBackLink from '../common/GoBackLink';
+import SubmitButton from '../common/SubmitButton';
 
 @inject('store')
 @observer
@@ -69,7 +70,7 @@ class AddAdditionalEquipment extends Component {
               ? <EquipmentAttributeList attributes={additionalEquipment.equipmentAttributes} removeFromList={removeFromList} />
               : ''
           }
-          <input type="submit" className="btn btn-primary btn-block mt-4" value="Submit" />
+          <SubmitButton />
         </form>
       </Fragment>
     );

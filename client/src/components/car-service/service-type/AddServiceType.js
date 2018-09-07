@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import ServiceTypeCheckbox from './ServiceTypeCheckbox';
 import GoBackLink from '../../common/GoBackLink';
+import SubmitButton from '../../common/SubmitButton';
 
 @inject('store')
 @observer
@@ -119,7 +120,7 @@ class AddServiceType extends Component {
               value={serviceType.toothedBelt}
               onCheck={onCheck} />
           </div>
-          <input type="submit" className="btn btn-primary btn-block mt-4" value="Submit" />
+          <SubmitButton />
         </form>
       </Fragment>
     );

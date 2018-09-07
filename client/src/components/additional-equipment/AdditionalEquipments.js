@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
 import AdditionalEquipmentList from './AdditionalEquipmentList';
@@ -9,6 +8,8 @@ import additionalEquipmentSortingOptions from './additionalEquipmentSortingOptio
 import Embeds from '../filter/Embeds';
 import additionalEquipmentEmbeds from './additionalEquipmentEmbeds';
 import SearchBox from '../search-box/SearchBox';
+import AddNewLink from '../common/AddNewLink';
+import ToggleButton from '../common/ToggleButton';
 
 @inject('store')
 @observer
@@ -26,7 +27,6 @@ class AdditionalEquipments extends Component {
   }
 
   render() {
-    const { pathname } = this.props.location
     const { equipment } = this.props.store;
     let renderList;
     if (equipment.loading) {
@@ -56,8 +56,6 @@ class AdditionalEquipments extends Component {
       )
       : '';
 
-    const showHideFilters = !this.state.toggleFilters ? "Hide filters" : "Show filters"
-
     return (
       <div>
         <h3 className="text-center"> Additional equipment</h3>
@@ -66,14 +64,11 @@ class AdditionalEquipments extends Component {
           placeholder="Search by Name or Description..."
           onSearch={equipment.find}
         />
-        <button name="toggleFilters" type="button" className="btn btn-outline-secondary mb-1" onClick={this.toggleFilters}>{showHideFilters}</button>
+        <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
         {renderList}
         <hr />
-        <Link
-          to={`${pathname}/add`}
-          className="btn btn-info  d-inline mr-4"
-        >Add additional equipment</Link>
+        <AddNewLink info="Add additional equipment" />
       </div>
     );
   }

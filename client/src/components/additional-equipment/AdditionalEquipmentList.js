@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import RemoveModal from '../common/RemoveModal';
-
+import RemoveButton from '../common/RemoveButton';
+import EditButton from '../common/EditButton';
 
 class AdditionalEquipmentList extends Component {
   state = {
@@ -39,23 +40,12 @@ class AdditionalEquipmentList extends Component {
               <div key={attr.id}>
                 <span>{attr.name}</span>
               </div>
-            )
-            )
+            ))
           }
         </td>
         <td>
-          <button
-            type="button"
-            className="btn btn-outline-danger btn-sm"
-            onClick={() => this.showModal(equipment)}
-          > Remove
-          </button>
-          <button
-            type="button"
-            className="btn btn-outline-info btn-sm ml-2"
-            onClick={() => this.props.onSelect(equipment.id, this.props.history)}
-          > Edit
-          </button>
+          <RemoveButton onClick={() => this.showModal(equipment)} />
+          <EditButton onClick={() => this.props.onSelect(equipment.id, this.props.history)} />
         </td>
       </tr>)
     )

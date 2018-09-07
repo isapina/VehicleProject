@@ -5,6 +5,7 @@ import classnames from 'classnames';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import GoBackLink from '../../common/GoBackLink';
+import SubmitButton from '../../common/SubmitButton';
 
 const VEHICLE_MODEL_NAME = "E350 - 2008";
 const VEHICLE_MODEL_ID = '0dd77ea8-386a-4ab7-a13c-40e8041eaa5c';
@@ -68,7 +69,7 @@ class AddServiceInterval extends Component {
             {renderServiceTypes}
           </div>
           {err && <div className="invalid-feedback">{err.serviceType || err.message}</div>}
-          <input type="submit" className="btn btn-primary btn-block mt-4" value="Submit" />
+          <SubmitButton />
         </form>
       </div>
     );

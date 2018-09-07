@@ -2,6 +2,9 @@ import React from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 
+import RemoveButton from './RemoveButton';
+import CancelButton from './CancelButton';
+
 const customStyles = {
   content: {
     top: '50%',
@@ -24,18 +27,8 @@ const RemoveModal = (props) => (
       <h3 className="text-center p-2">{props.title}</h3>
       <h5 className="text-muted"><i className="fas fa-exclamation-triangle"></i> {props.info}</h5>
       <div className="d-flex justify-content-around">
-        <button
-          className="btn btn-outline-danger"
-          onClick={props.handleRemove}
-        >
-          Remove
-        </button>
-        <button
-          className="btn btn-outline-success"
-          onClick={props.handleCancel}
-        >
-          Cancel
-        </button>
+        <RemoveButton onClick={props.handleRemove} />
+        <CancelButton onClick={props.handleCancel} />
       </div>
     </div>
   </Modal>
