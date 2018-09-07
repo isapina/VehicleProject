@@ -27,6 +27,10 @@ class ServiceIntervals extends Component {
     this.setState(prevState => ({ toggleFilters: !prevState.toggleFilters }))
   }
 
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   render() {
     const { serviceInterval } = this.props.store;
     let renderList;
@@ -50,9 +54,13 @@ class ServiceIntervals extends Component {
 
     const filters = !this.state.toggleFilters
       ? (
-        <div className="d-flex inline-flex">
-          <Sorting sortingOptions={serviceIntervalSortingOptions} />
-          <Embeds embeds={serviceIntervalEmbeds} />
+        <div>
+          <div className="d-flex inline-flex">
+            <Sorting sortingOptions={serviceIntervalSortingOptions} />
+            <Embeds embeds={serviceIntervalEmbeds} />
+          </div>
+          Greater than: <input type="number" min={0} max={500000} value={serviceInterval.mileageGreaterThanOrEqual} onChange={serviceInterval.onMileageRangeSet} name="mileageGreaterThanOrEqual" />
+          Less than:<input type="number" min={0} max={500000} value={serviceInterval.mileageLessThanOrEqual} onChange={serviceInterval.onMileageRangeSet} name="mileageLessThanOrEqual" />
         </div>
       )
       : '';
@@ -65,7 +73,7 @@ class ServiceIntervals extends Component {
         </div>
         <hr />
         <SearchBox
-          placeholder="Search by Name or Description..."
+          placeholder="Search mileage..."
           onSearch={serviceInterval.find}
         />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />

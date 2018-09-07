@@ -7,7 +7,9 @@ class ServiceIntervalStore {
     maximumMileage: '',
     vehicleModelId: '',
     serviceTypeId: ''
-  }
+  };
+  @observable mileageGreaterThanOrEqual = 0;
+  @observable mileageLessThanOrEqual = 0;
   @observable loading = false;
   @observable serviceIntervals = null;
   @observable errors = {};
@@ -26,7 +28,9 @@ class ServiceIntervalStore {
   find = async (params) => {
     try {
       this.loading = true;
-      const res = await service.find(params);
+      const from = this.mileageGreaterThanOrEqual > 0 ? this.mileageGreaterThanOrEqual : null;
+      const to = this.mileageLessThanOrEqual > 0 ? this.mileageLessThanOrEqual : null;
+      const res = await service.find(params, from, to);
       if (!_.isEmpty(res.data.data)) {
         this.serviceIntervals = res.data.data;
       }
@@ -88,6 +92,11 @@ class ServiceIntervalStore {
   @action
   onChange = (e) => {
     this.serviceInterval[e.target.name] = e.target.value;
+  }
+
+  @action
+  onMileageRangeSet = (e) => {
+    this[e.target.name] = e.target.value;
   }
 
   @action
