@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { observable, computed } from 'mobx';
 
-export class FilterModel {
+export class Filter {
   @observable searchTerm = '';
   @observable orderBy = '';
   @observable ascending = true;

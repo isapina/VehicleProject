@@ -2,28 +2,10 @@ import _ from 'lodash';
 import { action, observable } from 'mobx';
 import * as service from '../services/serviceTypeService';
 
+import { ServiceType } from '../models/ServiceType';
+
 class ServiceTypeStore {
-  @observable serviceType = {
-    name: '',
-    oilChangeService: false,
-    intervalService: false,
-    inspectionService: false,
-    brakeFluidChanged: false,
-    longLifeOilUsed: false,
-    atf: false,
-    dsgOilAndFilter: false,
-    naturalGasTankAndPipelines: false,
-    haldexCouplingOil: false,
-    fuelFilter: false,
-    airFilter: false,
-    tirePressureSensors: false,
-    tireFillerBottle: false,
-    dustAndPollenFilter: false,
-    toothedBelt: false,
-    sparkPlugs: false,
-    serviceIntervals: [],
-    carServiceHistories: []
-  }
+  @observable serviceType = new ServiceType();
   @observable loading = false;
   @observable serviceTypes = null;
   @observable errors = {};

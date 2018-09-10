@@ -2,12 +2,11 @@ import _ from 'lodash';
 import { action, observable } from 'mobx';
 import * as service from '../services/serviceIntervalService';
 
+import { ServiceInterval } from '../models/ServiceInterval';
+
 class ServiceIntervalStore {
-  @observable serviceInterval = {
-    maximumMileage: '',
-    vehicleModelId: '',
-    serviceTypeId: ''
-  };
+  @observable serviceInterval = new ServiceInterval();
+
   @observable mileageGreaterThanOrEqual = '';
   @observable mileageLessThanOrEqual = '';
   @observable loading = false;

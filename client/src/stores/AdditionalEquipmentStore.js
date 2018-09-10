@@ -2,13 +2,11 @@ import _ from 'lodash';
 import { action, observable } from 'mobx';
 import * as service from '../services/additionalEquipmentService';
 
+import { AdditionalEquipment } from '../models/AdditionalEquipment';
+
 class AdditionalEquipmentStore {
-  @observable additionalEquipment = {
-    name: '',
-    description: '',
-    equipmentname: '',
-    equipmentAttributes: []
-  }
+  @observable additionalEquipment = new AdditionalEquipment();
+
   @observable loading = false;
   @observable additionalEquipments = null;
   @observable errors = {};
