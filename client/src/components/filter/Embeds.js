@@ -10,8 +10,8 @@ class Embeds extends Component {
   }
 
   render() {
-    const { onCheck, embeds } = this.props.store.filter;
-    const renderIncludes = _.map(embeds, embed => (
+    const { onCheck, filter } = this.props.store.filter;
+    const renderIncludes = _.map(filter.embeds, embed => (
       <div className="form-check  w-50 d-flex justify-content-start" key={embed.name}>
         <input
           type="checkbox"

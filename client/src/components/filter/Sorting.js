@@ -10,12 +10,12 @@ class Sorting extends Component {
   render() {
 
     const ascendings = [{ label: 'Ascending', value: true }, { label: 'Descending', value: false }];
-    const { onChange, orderBy, ascending } = this.props.store.filter;
+    const { onChange, filter } = this.props.store.filter;
     return (
       <div className="d-flex inline-flex border w-50 p-1">
         <p className="text-muted form-text">Order by</p>
-        <SelectListGroup name="orderBy" options={this.props.sortingOptions} onChange={onChange} value={orderBy} />
-        <SelectListGroup name="ascending" options={ascendings} onChange={onChange} value={ascending} />
+        <SelectListGroup name="orderBy" options={this.props.sortingOptions} onChange={onChange} value={filter.orderBy} />
+        <SelectListGroup name="ascending" options={ascendings} onChange={onChange} value={filter.ascending} />
       </div>
     );
   }

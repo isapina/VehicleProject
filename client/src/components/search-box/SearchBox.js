@@ -7,12 +7,12 @@ import PropTypes from 'prop-types';
 class SearchBox extends Component {
   handleKeyPress = (e) => {
     if (e.charCode === 13) {
-      this.props.onSearch(this.props.store.filter.queryString);
+      this.props.onSearch(this.props.store.filter.filter.queryString);
     }
   }
 
   render() {
-    const { filter } = this.props.store;
+    const { filter, onChange } = this.props.store.filter;
     return (
       <div className="input-group mb-3">
         <input
@@ -21,7 +21,7 @@ class SearchBox extends Component {
           placeholder={this.props.placeholder}
           value={filter.searchTerm}
           name="searchTerm"
-          onChange={filter.onChange}
+          onChange={onChange}
           onKeyPress={this.handleKeyPress}
         />
         <div >

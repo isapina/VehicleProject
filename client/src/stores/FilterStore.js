@@ -1,41 +1,26 @@
 import _ from 'lodash';
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
+
+import { FilterModel } from '../models/FilterModel';
 
 class FilterStore {
-  @observable searchTerm = '';
-  @observable orderBy = '';
-  @observable ascending = true;
-  @observable pageNumber = null;
-  @observable pageSize = null;
-
-  @observable embeds = [];
+  @observable filter = new FilterModel();
 
   @action
   onChange = (e) => {
-    this[e.target.name] = e.target.value;
-  }
-
-  @computed
-  get queryString() {
-    return `searchTerm=${this.searchTerm}&embeds=${this.embedsCSV}&ascending=${this.ascending}&orderBy=${this.orderBy}&pageNumber=${this.pageNumber}&pageSize=${this.pageSize}`;
+    this.filter[e.target.name] = e.target.value;
   }
 
   @action
   onCheck = (e) => {
-    const item = _.find(this.embeds, { name: e.target.name });
+    const item = _.find(this.filter.embeds, { name: e.target.name });
     item.value = !item.value;
-    _.replace(this.embeds, embed => embed.name === item.name);
+    _.replace(this.filter.embeds, embed => embed.name === item.name);
   }
 
   @action
   fillEmbeds = (data) => {
-    this.embeds = data;
-  }
-
-  @computed
-  get embedsCSV() {
-    const include = _.map(_.filter(this.embeds, embed => embed.value === true), item => item.name);
-    return include.join(',');
+    this.filter.embeds = data;
   }
 }
 
