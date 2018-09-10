@@ -3,6 +3,7 @@ import { action, observable } from 'mobx';
 import * as service from '../services/serviceIntervalService';
 
 import { ServiceInterval } from '../models/ServiceInterval';
+import { validateServiceInterval } from '../validations/serviceInterval';
 
 class ServiceIntervalStore {
   @observable serviceInterval = new ServiceInterval();
@@ -29,6 +30,7 @@ class ServiceIntervalStore {
       this.loading = true;
       const from = this.mileageGreaterThanOrEqual > 0 ? this.mileageGreaterThanOrEqual : null;
       const to = this.mileageLessThanOrEqual > 0 ? this.mileageLessThanOrEqual : null;
+
       const res = await service.find(params, from, to);
       if (!_.isEmpty(res.data.data)) {
         this.serviceIntervals = res.data.data;
@@ -45,6 +47,9 @@ class ServiceIntervalStore {
 
   @action
   saveServiceInterval = async (history) => {
+    const { errors, isValid } = validateServiceInterval(this.serviceInterval);
+    if (!isValid) return this.errors = errors;
+
     try {
       this.errors = {};
       await service.save([this.serviceInterval]);
@@ -52,23 +57,15 @@ class ServiceIntervalStore {
 
       history.push('/car-service-interval');
     } catch (error) {
-      if (_.isEmpty(this.serviceInterval.maximumMileage)) {
-        this.errors.maximumMileage = "You need to enter maximum mileage for service interval"
-      }
-      if (_.isEmpty(this.serviceInterval.serviceTypeId)) {
-        this.errors.serviceType = "You need to select service type"
-      }
-      if (_.isEmpty(this.serviceInterval.vehicleModelId)) {
-        this.errors.vehicleModelId = "You need select vehicle model"
-      }
-      if (_.isEmpty(this.serviceInterval.serviceTypeId)) {
-        this.errors.serviceType = "You need to select service type"
-      }
+      this.errors = error.response.data;
     }
   }
 
   @action
   updateServiceInterval = async (id, history) => {
+    const { errors, isValid } = validateServiceInterval(this.serviceInterval);
+    if (!isValid) return this.errors = errors;
+
     try {
       await service.update(id, this.serviceInterval);
       history.push('/car-service-interval');

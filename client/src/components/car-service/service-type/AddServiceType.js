@@ -25,7 +25,6 @@ class AddServiceType extends Component {
     } = this.props.store.serviceType;
     const err = !_.isEmpty(errors) && errors;
 
-
     return (
       <Fragment>
         <GoBackLink to="/car-service-type" />
@@ -38,7 +37,8 @@ class AddServiceType extends Component {
             onChange={onChange}
             error={err.message || err.name}
           />
-          <div className="border form-inline w-100 p-2">
+          <div
+            className="border form-inline w-100 p-2">
             <ServiceTypeCheckbox
               name="airFilter"
               label="Air filter"
@@ -120,6 +120,7 @@ class AddServiceType extends Component {
               value={serviceType.toothedBelt}
               onCheck={onCheck} />
           </div>
+          {err.serviceCheckbox && <div className="invalid-feedback" style={{ display: 'block' }}>{err.serviceCheckbox}</div>}
           <SubmitButton />
         </form>
       </Fragment>

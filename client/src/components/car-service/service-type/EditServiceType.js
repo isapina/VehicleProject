@@ -18,8 +18,7 @@ class EditServiceType extends Component {
   onSubmit = async (e) => {
     e.preventDefault();
     const id = this.props.match.params.id;
-    await this.props.store.serviceType.updateServiceType(id)
-    this.props.history.push('/car-service-type');
+    await this.props.store.serviceType.updateServiceType(id, this.props.history);
   }
 
   render() {
@@ -40,7 +39,7 @@ class EditServiceType extends Component {
           <i className="fas fa-chevron-left"></i> Go back
         </Link>
         <form onSubmit={this.onSubmit}>
-          <h4>Add Service Type</h4>
+          <h4>Edit Service Type</h4>
           <TextFieldGroup
             name="name"
             placeholder="Service type name"
@@ -130,6 +129,7 @@ class EditServiceType extends Component {
               value={serviceType.toothedBelt}
               onCheck={onCheck} />
           </div>
+          {err.serviceCheckbox && <div className="invalid-feedback" style={{ display: 'block' }}>{err.serviceCheckbox}</div>}
           <SubmitButton />
         </form>
       </Fragment>

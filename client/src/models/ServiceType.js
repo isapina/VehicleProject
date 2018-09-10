@@ -18,6 +18,4 @@ export class ServiceType {
   @observable dustAndPollenFilter = false;
   @observable toothedBelt = false;
   @observable sparkPlugs = false;
-  @observable serviceIntervals = [];
-  @observable carServiceHistories = [];
 }

@@ -65,10 +65,10 @@ class AddServiceInterval extends Component {
               {VEHICLE_MODEL_NAME}
             </label>
           </div>
-          <div className={classnames('form-control form-control-lg', { 'is-invalid': err.serviceType })}>
+          <div className={classnames('form-control form-control-lg', { 'is-invalid': err.serviceTypeId })}>
             {renderServiceTypes}
           </div>
-          {err && <div className="invalid-feedback">{err.serviceType || err.message}</div>}
+          {err && <div className="invalid-feedback">{err.serviceTypeId || err.message}</div>}
           <SubmitButton />
         </form>
       </div>

@@ -3,6 +3,7 @@ import { action, observable } from 'mobx';
 import * as service from '../services/additionalEquipmentService';
 
 import { AdditionalEquipment } from '../models/AdditionalEquipment';
+import { validateAdditionalEquipment } from '../validations/additionalEquipment';
 
 class AdditionalEquipmentStore {
   @observable additionalEquipment = new AdditionalEquipment();
@@ -14,6 +15,9 @@ class AdditionalEquipmentStore {
   @action
   saveAdditionalEquipment = async (history) => {
     const { name, description, equipmentAttributes } = this.additionalEquipment;
+
+    const { errors, isValid } = validateAdditionalEquipment(this.additionalEquipment);
+    if (!isValid) return this.errors = errors;
 
     try {
       await service.save([{ name, description, equipmentAttributes }]);
@@ -29,9 +33,7 @@ class AdditionalEquipmentStore {
   findOne = async (id, embeds) => {
     try {
       const res = await service.findOne(id, embeds);
-      this.additionalEquipment.equipmentAttributes = res.data.equipmentAttributes;
-      this.additionalEquipment.description = res.data.description;
-      this.additionalEquipment.name = res.data.name;
+      this.additionalEquipment = _.pick(res.data, ['equipmentAttributes', 'name', 'description']);
 
     } catch (error) {
       this.errors = error.response.data;

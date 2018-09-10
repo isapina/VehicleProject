@@ -3,24 +3,13 @@ import { action, observable } from 'mobx';
 import * as service from '../services/serviceTypeService';
 
 import { ServiceType } from '../models/ServiceType';
+import { validateServiceType } from '../validations/serviceType';
 
 class ServiceTypeStore {
   @observable serviceType = new ServiceType();
   @observable loading = false;
   @observable serviceTypes = null;
   @observable errors = {};
-
-  @action
-  saveServiceType = async (history) => {
-    try {
-      await service.save([this.serviceType]);
-      this.refreshStateToInitialValue();
-
-      history.push('/car-service-type');
-    } catch (error) {
-      this.errors = error.response.data;
-    }
-  }
 
   @action
   findOne = async (id, embeds) => {
@@ -51,10 +40,30 @@ class ServiceTypeStore {
   }
 
   @action
-  updateServiceType = async (id) => {
+  saveServiceType = async (history) => {
+    const { errors, isValid } = validateServiceType(this.serviceType);
+    if (!isValid) return this.errors = errors;
+
+    try {
+      await service.save([this.serviceType]);
+      this.refreshStateToInitialValue();
+
+      history.push('/car-service-type');
+    } catch (error) {
+      this.errors = error.response.data;
+    }
+  }
+
+  @action
+  updateServiceType = async (id, history) => {
+    const { errors, isValid } = validateServiceType(this.serviceType);
+    if (!isValid) return this.errors = errors;
+
     try {
       await service.update(id, this.serviceType);
       this.refreshStateToInitialValue();
+
+      history.push('/car-service-type');
     } catch (error) {
       this.errors = error.response.data;
     }

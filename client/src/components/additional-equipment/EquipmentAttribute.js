@@ -8,7 +8,7 @@ const EquipmentAttribute = (props) => (
     <TextFieldGroup
       name="equipmentname"
       placeholder="Equipment attribute"
-      value={props.name}
+      value={props.name || ''}
       onChange={props.onChange}
       error={props.error}
     />
