@@ -6,12 +6,12 @@ const rootURL = "/api/service-intervals";
 export const find = async (params = '', mileageGreaterThanOrEqual, mileageLessThanOrEqual) => {
   let query = '';
   if (_.isEmpty(params)) {
-    query = `?mileageGreaterThanOrEqual=${mileageGreaterThanOrEqual}&mileageLessThanOrEqual=${mileageLessThanOrEqual}`;
+    query = `mileageGreaterThanOrEqual=${mileageGreaterThanOrEqual}&mileageLessThanOrEqual=${mileageLessThanOrEqual}`;
   }
   else {
     query = `${params}&mileageGreaterThanOrEqual=${mileageGreaterThanOrEqual}&mileageLessThanOrEqual=${mileageLessThanOrEqual}`;
   }
-  return await axios.get(`${rootURL}${query}`);
+  return await axios.get(`${rootURL}?${query}`);
 }
 
 export const findOne = async (id, embeds = '') => {

@@ -3,7 +3,7 @@ import axios from '../axios';
 const rootURL = "/api/additional-equipments";
 
 export const find = async (queryString = '') => {
-  return await axios.get(`${rootURL}${queryString}`);
+  return await axios.get(`${rootURL}?${queryString}`);
 }
 
 export const findOne = async (id, embeds = '') => {

@@ -8,8 +8,8 @@ class ServiceIntervalStore {
     vehicleModelId: '',
     serviceTypeId: ''
   };
-  @observable mileageGreaterThanOrEqual = 0;
-  @observable mileageLessThanOrEqual = 0;
+  @observable mileageGreaterThanOrEqual = '';
+  @observable mileageLessThanOrEqual = '';
   @observable loading = false;
   @observable serviceIntervals = null;
   @observable errors = {};

@@ -11,6 +11,7 @@ import serviceIntervalEmbeds from './serviceIntervalEmbeds';
 import GoBackLink from '../../common/GoBackLink';
 import AddNewLink from '../../common/AddNewLink';
 import ToggleButton from '../../common/ToggleButton';
+import TextFieldGroup from '../../common/TextFieldGroup';
 
 @inject('store')
 @observer
@@ -59,8 +60,28 @@ class ServiceIntervals extends Component {
             <Sorting sortingOptions={serviceIntervalSortingOptions} />
             <Embeds embeds={serviceIntervalEmbeds} />
           </div>
-          Greater than: <input type="number" min={0} max={500000} value={serviceInterval.mileageGreaterThanOrEqual} onChange={serviceInterval.onMileageRangeSet} name="mileageGreaterThanOrEqual" />
-          Less than:<input type="number" min={0} max={500000} value={serviceInterval.mileageLessThanOrEqual} onChange={serviceInterval.onMileageRangeSet} name="mileageLessThanOrEqual" />
+          <div className="w-50 mt-2">
+            <TextFieldGroup
+              type="number"
+              min={0}
+              max={500000}
+              name="mileageGreaterThanOrEqual"
+              placeholder="Greater than"
+              value={serviceInterval.mileageGreaterThanOrEqual}
+              onChange={serviceInterval.onMileageRangeSet}
+              info="Minimum mileage to be included in search. (zero doesn't count)"
+            />
+            <TextFieldGroup
+              type="number"
+              min={serviceInterval.mileageGreaterThanOrEqual}
+              max={1000000}
+              name="mileageLessThanOrEqual"
+              placeholder="Less than"
+              value={serviceInterval.mileageLessThanOrEqual}
+              onChange={serviceInterval.onMileageRangeSet}
+              info="Maximum mileage to be included in search. (zero doesn't count)"
+            />
+          </div>
         </div>
       )
       : '';
