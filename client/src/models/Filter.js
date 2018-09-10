@@ -5,14 +5,12 @@ export class Filter {
   @observable searchTerm = '';
   @observable orderBy = '';
   @observable ascending = true;
-  @observable pageNumber = null;
-  @observable pageSize = null;
 
   @observable embeds = [];
 
   @computed
   get queryString() {
-    return `searchTerm=${this.searchTerm}&embeds=${this.embedsCSV}&ascending=${this.ascending}&orderBy=${this.orderBy}&pageNumber=${this.pageNumber}&pageSize=${this.pageSize}`;
+    return `searchTerm=${this.searchTerm}&embeds=${this.embedsCSV}&ascending=${this.ascending}&orderBy=${this.orderBy}`;
   }
 
   @computed

@@ -7,9 +7,21 @@ import { validateServiceType } from '../validations/serviceType';
 
 class ServiceTypeStore {
   @observable serviceType = new ServiceType();
+
+  @observable currentPage = 1;
+  @observable pageSize = 5;
+  @observable totalItems = 0;
+  @observable totalPages = 0;
+
   @observable loading = false;
   @observable serviceTypes = null;
   @observable errors = {};
+
+  @action
+  onPageChange = (page, params) => {
+    this.currentPage = page;
+    this.find(params);
+  }
 
   @action
   findOne = async (id, embeds) => {
@@ -25,9 +37,13 @@ class ServiceTypeStore {
   find = async (params) => {
     try {
       this.loading = true;
-      const res = await service.find(params);
+      const res = await service.find(params, this.currentPage, this.pageSize);
       if (!_.isEmpty(res.data.data)) {
         this.serviceTypes = res.data.data;
+        this.currentPage = res.data.currentPage;
+        this.pageSize = res.data.pageSize;
+        this.totalItems = res.data.totalItems;
+        this.totalPages = res.data.totalPages;
       }
       else {
         this.serviceTypes = null;
@@ -87,6 +103,16 @@ class ServiceTypeStore {
   @action
   onChange = (e) => {
     this.serviceType[e.target.name] = e.target.value;
+  }
+
+  @action
+  onMileageChange = (e) => {
+    this.serviceType[e.target.name] = e.target.value;
+  }
+
+  @action
+  onNumberValueChange = (e) => {
+    this[e.target.name] = parseInt(e.target.value, 10);
   }
 
   @action

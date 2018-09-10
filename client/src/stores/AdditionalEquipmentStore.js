@@ -8,9 +8,53 @@ import { validateAdditionalEquipment } from '../validations/additionalEquipment'
 class AdditionalEquipmentStore {
   @observable additionalEquipment = new AdditionalEquipment();
 
+  @observable currentPage = 1;
+  @observable pageSize = 5;
+  @observable totalItems = 0;
+  @observable totalPages = 0;
+
   @observable loading = false;
   @observable additionalEquipments = null;
   @observable errors = {};
+
+  @action
+  onPageChange = (page, params) => {
+    this.currentPage = page;
+    this.find(params);
+  }
+
+  @action
+  find = async (params) => {
+    try {
+      this.loading = true;
+      const res = await service.find(params, this.currentPage, this.pageSize);
+      if (!_.isEmpty(res.data.data)) {
+        this.additionalEquipments = res.data.data;
+        this.currentPage = res.data.currentPage;
+        this.pageSize = res.data.pageSize;
+        this.totalItems = res.data.totalItems;
+        this.totalPages = res.data.totalPages;
+      }
+      else {
+        this.additionalEquipments = null;
+      }
+      this.loading = false;
+    } catch (error) {
+      this.errors = error.response.data;
+      this.loading = false;
+    }
+  }
+
+  @action
+  findOne = async (id, embeds) => {
+    try {
+      const res = await service.findOne(id, embeds);
+      this.additionalEquipment = _.pick(res.data, ['equipmentAttributes', 'name', 'description']);
+
+    } catch (error) {
+      this.errors = error.response.data;
+    }
+  }
 
   @action
   saveAdditionalEquipment = async (history) => {
@@ -29,34 +73,6 @@ class AdditionalEquipmentStore {
     }
   }
 
-  @action
-  findOne = async (id, embeds) => {
-    try {
-      const res = await service.findOne(id, embeds);
-      this.additionalEquipment = _.pick(res.data, ['equipmentAttributes', 'name', 'description']);
-
-    } catch (error) {
-      this.errors = error.response.data;
-    }
-  }
-
-  @action
-  find = async (params) => {
-    try {
-      this.loading = true;
-      const res = await service.find(params);
-      if (!_.isEmpty(res.data.data)) {
-        this.additionalEquipments = res.data.data;
-      }
-      else {
-        this.additionalEquipments = null;
-      }
-      this.loading = false;
-    } catch (error) {
-      this.errors = error.response.data;
-      this.loading = false;
-    }
-  }
 
   @action
   updateAdditionalEquipment = async (id) => {
@@ -66,6 +82,11 @@ class AdditionalEquipmentStore {
     } catch (error) {
       this.errors = error.response.data;
     }
+  }
+
+  @action
+  onNumberValueChange = (e) => {
+    this[e.target.name] = parseInt(e.target.value, 10);
   }
 
   @action

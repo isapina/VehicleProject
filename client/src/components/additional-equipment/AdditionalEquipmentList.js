@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import RemoveModal from '../common/RemoveModal';
 import RemoveButton from '../common/RemoveButton';
 import EditButton from '../common/EditButton';
+import Pagination from '../filter/Pagination';
 
 class AdditionalEquipmentList extends Component {
   state = {
@@ -63,6 +64,12 @@ class AdditionalEquipmentList extends Component {
             {show}
           </thead>
         </table>
+        <Pagination
+          itemsCount={this.props.paging.totalItems}
+          pageSize={this.props.paging.pageSize}
+          currentPage={this.props.paging.currentPage}
+          onPageChange={this.props.onPageChange}
+        />
         <RemoveModal
           isOpen={this.state.isModalOpen}
           title={`Remove ${this.state.name} ?`}

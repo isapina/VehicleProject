@@ -8,11 +8,22 @@ import { validateServiceInterval } from '../validations/serviceInterval';
 class ServiceIntervalStore {
   @observable serviceInterval = new ServiceInterval();
 
+  @observable currentPage = 1;
+  @observable pageSize = 5;
+  @observable totalItems = 0;
+  @observable totalPages = 0;
+
   @observable mileageGreaterThanOrEqual = '';
   @observable mileageLessThanOrEqual = '';
   @observable loading = false;
   @observable serviceIntervals = null;
   @observable errors = {};
+
+  @action
+  onPageChange = (page, params) => {
+    this.currentPage = page;
+    this.find(params);
+  }
 
   @action
   findOne = async (id, embeds) => {
@@ -31,9 +42,13 @@ class ServiceIntervalStore {
       const from = this.mileageGreaterThanOrEqual > 0 ? this.mileageGreaterThanOrEqual : null;
       const to = this.mileageLessThanOrEqual > 0 ? this.mileageLessThanOrEqual : null;
 
-      const res = await service.find(params, from, to);
+      const res = await service.find(params, this.currentPage, this.pageSize, from, to);
       if (!_.isEmpty(res.data.data)) {
         this.serviceIntervals = res.data.data;
+        this.currentPage = res.data.currentPage;
+        this.pageSize = res.data.pageSize;
+        this.totalItems = res.data.totalItems;
+        this.totalPages = res.data.totalPages;
       }
       else {
         this.serviceIntervals = null;
@@ -91,8 +106,8 @@ class ServiceIntervalStore {
   }
 
   @action
-  onMileageRangeSet = (e) => {
-    this[e.target.name] = e.target.value;
+  onNumberValueChange = (e) => {
+    this[e.target.name] = parseInt(e.target.value, 10);
   }
 
   @action

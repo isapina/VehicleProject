@@ -8,6 +8,7 @@ import EditButton from '../../common/EditButton';
 import RemoveModal from '../../common/RemoveModal';
 import PreviewServiceType from './PreviewServiceType';
 import PreviewButton from '../../common/PreviewButton';
+import Pagination from '../../filter/Pagination';
 
 class ServiceTypeList extends Component {
   state = {
@@ -78,6 +79,12 @@ class ServiceTypeList extends Component {
             serviceType={this.state.serviceType}
           />
         </div>
+        <Pagination
+          itemsCount={this.props.paging.totalItems}
+          pageSize={this.props.paging.pageSize}
+          currentPage={this.props.paging.currentPage}
+          onPageChange={this.props.onPageChange}
+        />
       </div>
     );
   }

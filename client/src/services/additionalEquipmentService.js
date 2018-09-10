@@ -2,8 +2,8 @@ import axios from '../axios';
 
 const rootURL = "/api/additional-equipments";
 
-export const find = async (queryString = '') => {
-  return await axios.get(`${rootURL}?${queryString}`);
+export const find = async (queryString = '', currentPage = 1, pageSize = 10) => {
+  return await axios.get(`${rootURL}?${queryString}&pageNumber=${currentPage}&pageSize=${pageSize}`);
 }
 
 export const findOne = async (id, embeds = '') => {

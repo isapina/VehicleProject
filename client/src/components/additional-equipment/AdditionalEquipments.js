@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
@@ -10,6 +11,8 @@ import additionalEquipmentEmbeds from './additionalEquipmentEmbeds';
 import SearchBox from '../search-box/SearchBox';
 import AddNewLink from '../common/AddNewLink';
 import ToggleButton from '../common/ToggleButton';
+import SelectListGroup from '../common/SelectListGroup';
+import { pages } from '../filter/pages';
 
 @inject('store')
 @observer
@@ -26,8 +29,15 @@ class AdditionalEquipments extends Component {
     this.setState(prevState => ({ toggleFilters: !prevState.toggleFilters }))
   }
 
+  onPageChange = (page) => {
+    const query = this.props.store.filter.filter.queryString;
+    this.props.store.equipment.onPageChange(page, query);
+  }
+
   render() {
     const { equipment } = this.props.store;
+    const paging = _.pick(equipment, ['currentPage', 'pageSize', 'totalItems', 'totalPages']);
+
     let renderList;
     if (equipment.loading) {
       renderList = <Spinner />
@@ -41,6 +51,8 @@ class AdditionalEquipments extends Component {
           equipments={equipment.additionalEquipments}
           onRemoveAdditionalEquipment={equipment.onRemoveAdditionalEquipment}
           onSelect={equipment.onSelect}
+          onPageChange={this.onPageChange}
+          paging={paging}
         />)
     }
     else {
@@ -49,9 +61,17 @@ class AdditionalEquipments extends Component {
 
     const filters = !this.state.toggleFilters
       ? (
-        <div className="d-flex inline-flex">
-          <Sorting sortingOptions={additionalEquipmentSortingOptions} />
-          <Embeds embeds={additionalEquipmentEmbeds} />
+        <div>
+          <div className="d-flex inline-flex">
+            <Sorting sortingOptions={additionalEquipmentSortingOptions} />
+            <Embeds embeds={additionalEquipmentEmbeds} />
+          </div>
+          <SelectListGroup
+            name="pageSize"
+            value={equipment.pageSize}
+            onChange={equipment.onNumberValueChange}
+            options={pages}
+            info="Select how many items you want to be displayed per page" />
         </div>
       )
       : '';

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
@@ -12,6 +13,8 @@ import GoBackLink from '../../common/GoBackLink';
 import AddNewLink from '../../common/AddNewLink';
 import ToggleButton from '../../common/ToggleButton';
 import TextFieldGroup from '../../common/TextFieldGroup';
+import SelectListGroup from '../../common/SelectListGroup';
+import { pages } from '../../filter/pages';
 
 @inject('store')
 @observer
@@ -32,8 +35,15 @@ class ServiceIntervals extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  onPageChange = (page) => {
+    const query = this.props.store.filter.filter.queryString;
+    this.props.store.serviceInterval.onPageChange(page, query);
+  }
+
   render() {
     const { serviceInterval } = this.props.store;
+    const paging = _.pick(serviceInterval, ['currentPage', 'pageSize', 'totalItems', 'totalPages']);
+
     let renderList;
     if (serviceInterval.loading) {
       renderList = <Spinner />
@@ -47,6 +57,8 @@ class ServiceIntervals extends Component {
           intervals={serviceInterval.serviceIntervals}
           onRemoveServiceInterval={serviceInterval.onRemoveServiceInterval}
           onSelect={serviceInterval.onSelect}
+          onPageChange={this.onPageChange}
+          paging={paging}
         />)
     }
     else {
@@ -68,7 +80,7 @@ class ServiceIntervals extends Component {
               name="mileageGreaterThanOrEqual"
               placeholder="Greater than"
               value={serviceInterval.mileageGreaterThanOrEqual}
-              onChange={serviceInterval.onMileageRangeSet}
+              onChange={serviceInterval.onNumberValueChange}
               info="Minimum mileage to be included in search. (zero doesn't count)"
             />
             <TextFieldGroup
@@ -78,10 +90,16 @@ class ServiceIntervals extends Component {
               name="mileageLessThanOrEqual"
               placeholder="Less than"
               value={serviceInterval.mileageLessThanOrEqual}
-              onChange={serviceInterval.onMileageRangeSet}
+              onChange={serviceInterval.onNumberValueChange}
               info="Maximum mileage to be included in search. (zero doesn't count)"
             />
           </div>
+          <SelectListGroup
+            name="pageSize"
+            value={serviceInterval.pageSize}
+            onChange={serviceInterval.onNumberValueChange}
+            options={pages}
+            info="Select how many items you want to be displayed per page" />
         </div>
       )
       : '';
