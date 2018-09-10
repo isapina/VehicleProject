@@ -13,7 +13,7 @@ export const validateServiceType = (data) => {
     errors.name = "Service name field is required";
   }
 
-  if (_.isEmpty(filtered) || filtered === {}) {
+  if (_.isEmpty(filtered)) {
     errors.serviceCheckbox = "At least one service option need to be selected";
   }
 
