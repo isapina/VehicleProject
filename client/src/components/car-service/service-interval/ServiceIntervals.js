@@ -14,6 +14,7 @@ import AddNewLink from '../../common/AddNewLink';
 import ToggleButton from '../../common/ToggleButton';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import SelectListGroup from '../../common/SelectListGroup';
+import Pagination from '../../filter/Pagination';
 import { pages } from '../../filter/pages';
 
 @inject('store')
@@ -117,6 +118,12 @@ class ServiceIntervals extends Component {
         />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
+        <Pagination
+          itemsCount={paging.totalItems}
+          pageSize={paging.pageSize}
+          currentPage={paging.currentPage}
+          onPageChange={this.onPageChange}
+        />
         {renderList}
         <hr />
         <AddNewLink info="Add service interval" />

@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import RemoveModal from '../../common/RemoveModal';
 import RemoveButton from '../../common/RemoveButton';
 import EditButton from '../../common/EditButton';
-import Pagination from '../../filter/Pagination';
 
 class ServiceIntervalList extends Component {
   state = {
@@ -63,12 +62,6 @@ class ServiceIntervalList extends Component {
           <span className="col-md-3 text-center"></span>
         </div>
         {renderList}
-        <Pagination
-          itemsCount={this.props.paging.totalItems}
-          pageSize={this.props.paging.pageSize}
-          currentPage={this.props.paging.currentPage}
-          onPageChange={this.props.onPageChange}
-        />
         <RemoveModal
           isOpen={this.state.isOpen}
           title={`Remove mileage - ${this.state.name}?`}

@@ -12,6 +12,7 @@ import SearchBox from '../search-box/SearchBox';
 import AddNewLink from '../common/AddNewLink';
 import ToggleButton from '../common/ToggleButton';
 import SelectListGroup from '../common/SelectListGroup';
+import Pagination from '../filter/Pagination';
 import { pages } from '../filter/pages';
 
 @inject('store')
@@ -51,8 +52,6 @@ class AdditionalEquipments extends Component {
           equipments={equipment.additionalEquipments}
           onRemoveAdditionalEquipment={equipment.onRemoveAdditionalEquipment}
           onSelect={equipment.onSelect}
-          onPageChange={this.onPageChange}
-          paging={paging}
         />)
     }
     else {
@@ -86,6 +85,12 @@ class AdditionalEquipments extends Component {
         />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
+        <Pagination
+          itemsCount={paging.totalItems}
+          pageSize={paging.pageSize}
+          currentPage={paging.currentPage}
+          onPageChange={this.onPageChange}
+        />
         {renderList}
         <hr />
         <AddNewLink info="Add additional equipment" />

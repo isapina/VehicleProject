@@ -12,6 +12,7 @@ import GoBackLink from '../../common/GoBackLink';
 import AddNewLink from '../../common/AddNewLink';
 import ToggleButton from '../../common/ToggleButton';
 import SelectListGroup from '../../common/SelectListGroup';
+import Pagination from '../../filter/Pagination';
 import { pages } from '../../filter/pages';
 
 @inject('store')
@@ -87,6 +88,12 @@ class ServiceTypes extends Component {
         <SearchBox placeholder="Search by Name..." onSearch={find} />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
+        <Pagination
+          itemsCount={paging.totalItems}
+          pageSize={paging.pageSize}
+          currentPage={paging.currentPage}
+          onPageChange={this.onPageChange}
+        />
         {renderList}
         <hr />
         <div className="row">
