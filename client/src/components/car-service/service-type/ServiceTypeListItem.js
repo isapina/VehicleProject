@@ -6,7 +6,7 @@ import RemoveButton from '../../common/RemoveButton';
 import EditButton from '../../common/EditButton';
 
 const ServiceTypeListItem = ({ serviceType, history, showPreviewModal, showModal }) => (
-  <tr key={serviceType.id} className="d-flex justify-content-between">
+  <tr className="d-flex justify-content-between">
     <td>{serviceType.name}</td>
     <td>
       <PreviewButton onClick={() => showPreviewModal(serviceType)} />

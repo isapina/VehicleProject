@@ -40,7 +40,12 @@ class ServiceTypeList extends Component {
 
   render() {
     const renderList = _.map(this.props.serviceTypes, serviceType => (
-      <ServiceTypeListItem history={this.props.history} serviceType={serviceType} showModal={this.showModal} showPreviewModal={this.showPreviewModal} />
+      <ServiceTypeListItem
+        key={serviceType.id}
+        history={this.props.history}
+        serviceType={serviceType}
+        showModal={this.showModal}
+        showPreviewModal={this.showPreviewModal} />
     ));
 
     return (

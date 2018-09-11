@@ -30,7 +30,11 @@ class ServiceIntervalList extends Component {
 
   render() {
     const renderList = _.map(this.props.intervals, interval => (
-      <ServiceIntervalListItem history={this.props.history} interval={interval} showModal={this.showModal} />
+      <ServiceIntervalListItem
+        key={interval.id}
+        history={this.props.history}
+        interval={interval}
+        showModal={this.showModal} />
     ));
 
     return (

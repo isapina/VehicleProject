@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import RemoveButton from '../common/RemoveButton';
 
 const EquipmentAttributeListItem = ({ attribute, removeFromList }) => (
-  <tr key={attribute.id}>
+  <tr>
     <td>{attribute.name}</td>
     <td>
       <RemoveButton onClick={() => removeFromList(attribute.id)} />

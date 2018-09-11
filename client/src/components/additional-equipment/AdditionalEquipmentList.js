@@ -4,8 +4,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import RemoveModal from '../common/RemoveModal';
-import RemoveButton from '../common/RemoveButton';
-import EditButton from '../common/EditButton';
+import AdditionalEquipmentListItem from './AdditionalEquipmentListItem';
 
 class AdditionalEquipmentList extends Component {
   state = {
@@ -21,7 +20,6 @@ class AdditionalEquipmentList extends Component {
   handleRemove = async () => {
     const { id } = this.state;
     await this.props.onRemoveAdditionalEquipment(id);
-    this.handleCancel();
   }
 
   handleCancel = () => {
@@ -30,25 +28,13 @@ class AdditionalEquipmentList extends Component {
 
   render() {
     const show = _.map(this.props.equipments, equipment => (
-      <tr
-        key={equipment.id}>
-        <td>{equipment.name}</td>
-        <td style={{ maxWidth: '700px' }}>{equipment.description}</td>
-        <td>
-          {
-            _.map(equipment.equipmentAttributes, attr => (
-              <div key={attr.id}>
-                <span>{attr.name}</span>
-              </div>
-            ))
-          }
-        </td>
-        <td>
-          <RemoveButton onClick={() => this.showModal(equipment)} />
-          <EditButton onClick={() => this.props.onSelect(equipment.id, this.props.history)} />
-        </td>
-      </tr>)
-    )
+      <AdditionalEquipmentListItem
+        key={equipment.id}
+        equipment={equipment}
+        history={this.props.history}
+        onSelect={this.props.onSelect}
+        showModal={this.showModal} />
+    ));
 
     return (
       <Fragment>

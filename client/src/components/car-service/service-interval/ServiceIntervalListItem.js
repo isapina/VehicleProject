@@ -6,8 +6,7 @@ import RemoveButton from '../../common/RemoveButton';
 import EditButton from '../../common/EditButton';
 
 const ServiceIntervalListItem = ({ interval, showModal, history }) => (
-  <div key={interval.id}
-    className="row bg-light border-bottom border-secondary text-dark p-1">
+  <div className="row bg-light border-bottom border-secondary text-dark p-1">
     <span className="col-md-3 text-center">{interval.maximumMileage}</span>
     {
       !_.isEmpty(interval.vehicleModel)

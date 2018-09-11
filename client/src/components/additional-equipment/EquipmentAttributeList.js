@@ -6,7 +6,10 @@ import EquipmentAttributeListItem from './EquipmentAttributeListItem';
 
 const EquipmentAttributeList = (props) => {
   const attributes = _.map(props.attributes, attribute => (
-    <EquipmentAttributeListItem attribute={attribute} removeFromList={props.removeFromList} />
+    <EquipmentAttributeListItem
+      key={attribute.id}
+      attribute={attribute}
+      removeFromList={props.removeFromList} />
   ));
 
   return (
