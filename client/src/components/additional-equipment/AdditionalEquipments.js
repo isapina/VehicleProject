@@ -75,6 +75,15 @@ class AdditionalEquipments extends Component {
       )
       : '';
 
+    const pagination = equipment.additionalEquipments !== null && equipment.additionalEquipments.length > 0
+      ? <Pagination
+        itemsCount={paging.totalItems}
+        pageSize={paging.pageSize}
+        currentPage={paging.currentPage}
+        onPageChange={this.onPageChange}
+      />
+      : '';
+
     return (
       <div>
         <h3 className="text-center"> Additional equipment</h3>
@@ -85,12 +94,7 @@ class AdditionalEquipments extends Component {
         />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
-        <Pagination
-          itemsCount={paging.totalItems}
-          pageSize={paging.pageSize}
-          currentPage={paging.currentPage}
-          onPageChange={this.onPageChange}
-        />
+        {pagination}
         {renderList}
         <hr />
         <AddNewLink info="Add additional equipment" />

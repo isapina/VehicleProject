@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import RemoveModal from '../../common/RemoveModal';
-import RemoveButton from '../../common/RemoveButton';
-import EditButton from '../../common/EditButton';
+import ServiceIntervalListItem from './ServiceIntervalListItem';
 
 class ServiceIntervalList extends Component {
   state = {
@@ -30,29 +29,10 @@ class ServiceIntervalList extends Component {
   }
 
   render() {
-    const { pathname } = this.props.location;
     const renderList = _.map(this.props.intervals, interval => (
+      <ServiceIntervalListItem history={this.props.history} interval={interval} showModal={this.showModal} />
+    ));
 
-      <div key={interval.id}
-        className="row bg-light border-bottom border-secondary text-dark p-1">
-        <span className="col-md-3 text-center">{interval.maximumMileage}</span>
-        {
-          !_.isEmpty(interval.vehicleModel)
-            ? <span className="col-md-3 text-center">{interval.vehicleModel.name} - {interval.vehicleModel.year}</span>
-            : <span className="col-md-3 text-center"></span>
-        }
-        {
-          !_.isEmpty(interval.serviceType)
-            ? <span className="col-md-3 text-center">({interval.serviceType.name})</span>
-            : <span className="col-md-3 text-center"></span>
-        }
-        <span className="col-md-3 text-center">
-          <RemoveButton onClick={() => this.showModal(interval)} />
-          <EditButton onClick={() => this.props.history.push(`${pathname}/${interval.id}`)} />
-        </span>
-        <hr />
-      </div>)
-    )
     return (
       <div>
         <div className="row bg-dark border-bottom border-danger text-light pb-1">

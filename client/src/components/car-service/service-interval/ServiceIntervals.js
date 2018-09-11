@@ -105,6 +105,15 @@ class ServiceIntervals extends Component {
       )
       : '';
 
+    const pagination = serviceInterval.serviceIntervals !== null && serviceInterval.serviceIntervals.length > 0
+      ? <Pagination
+        itemsCount={paging.totalItems}
+        pageSize={paging.pageSize}
+        currentPage={paging.currentPage}
+        onPageChange={this.onPageChange}
+      />
+      : '';
+
     return (
       <div>
         <div className="row m-1">
@@ -118,12 +127,7 @@ class ServiceIntervals extends Component {
         />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
-        <Pagination
-          itemsCount={paging.totalItems}
-          pageSize={paging.pageSize}
-          currentPage={paging.currentPage}
-          onPageChange={this.onPageChange}
-        />
+        {pagination}
         {renderList}
         <hr />
         <AddNewLink info="Add service interval" />
