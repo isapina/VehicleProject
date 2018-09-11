@@ -54,9 +54,6 @@ class AdditionalEquipments extends Component {
           onSelect={equipment.onSelect}
         />)
     }
-    else {
-      renderList = <p>Sorry, we couldn't find any result(s) matching.</p>
-    }
 
     const filters = !this.state.toggleFilters
       ? (
