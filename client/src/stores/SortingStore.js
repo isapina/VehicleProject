@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { observable, action } from 'mobx';
 
 class SortingStore {
@@ -8,6 +7,12 @@ class SortingStore {
   @action
   onChange = (e) => {
     this[e.target.name] = e.target.value;
+  }
+
+  @action
+  clear = () => {
+    this.orderBy = '';
+    this.ascending = true;
   }
 }
 

@@ -31,13 +31,20 @@ class AdditionalEquipments extends Component {
   }
 
   onPageChange = (page) => {
-    const query = this.props.store.filter.filter.queryString;
-    this.props.store.equipment.onPageChange(page, query);
+    this.props.store.pagination.onPageChange(page);
+    const { embedsCSV } = this.props.store.embeds;
+    const { orderBy, ascending } = this.props.store.sorting;
+    const { searchTerm } = this.props.store.search;
+    const { currentPage, pageSize } = this.props.store.pagination;
+    this.props.store.equipment.find(searchTerm, embedsCSV, { orderBy, ascending }, { currentPage, pageSize });
   }
 
   render() {
     const { embedsCSV } = this.props.store.embeds;
     const { orderBy, ascending } = this.props.store.sorting;
+    const { searchTerm } = this.props.store.search;
+    const { currentPage, pageSize, setPageSize } = this.props.store.pagination;
+
     const { equipment } = this.props.store;
     const paging = _.pick(equipment, ['currentPage', 'pageSize', 'totalItems', 'totalPages']);
 
@@ -66,8 +73,8 @@ class AdditionalEquipments extends Component {
           </div>
           <SelectListGroup
             name="pageSize"
-            value={equipment.pageSize}
-            onChange={equipment.onNumberValueChange}
+            value={pageSize}
+            onChange={setPageSize}
             options={pages}
             info="Select how many items you want to be displayed per page" />
         </div>
@@ -76,8 +83,7 @@ class AdditionalEquipments extends Component {
 
     const pagination = equipment.additionalEquipments !== null && equipment.additionalEquipments.length > 0
       ? <Pagination
-        itemsCount={paging.totalItems}
-        pageSize={paging.pageSize}
+        totalPages={paging.totalPages}
         currentPage={paging.currentPage}
         onPageChange={this.onPageChange}
       />
@@ -89,7 +95,7 @@ class AdditionalEquipments extends Component {
         <hr />
         <SearchBox
           placeholder="Search by Name or Description..."
-          onSearch={() => equipment.find('', embedsCSV, { orderBy, ascending })}
+          onSearch={() => equipment.find(searchTerm, embedsCSV, { orderBy, ascending }, { currentPage, pageSize })}
         />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}

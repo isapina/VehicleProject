@@ -1,11 +1,17 @@
-import _ from 'lodash';
 import axios from '../axios';
 
 const rootURL = "/api/service-intervals";
 
-export const find = async (searchTerm = '', embeds = '', { orderBy = 'id', ascending = true } = '', { currentPage = 1, pageSize = 5 } = {}, mileageGreaterThanOrEqual, mileageLessThanOrEqual) => {
+export const find = async (
+  searchTerm = '',
+  embeds = '',
+  { orderBy = 'id', ascending = true } = '',
+  { currentPage = 1, pageSize = 5 } = {},
+  mileageGreaterThanOrEqual,
+  mileageLessThanOrEqual) => {
 
-  const queryString = `searchTerm=${searchTerm}&orderBy=${orderBy}&ascending=${ascending}&embeds=${embeds}&pageNumber=${currentPage}&pageSize=${pageSize}`
+  const queryString = `searchTerm=${searchTerm}&orderBy=${orderBy}&ascending=${ascending}&embeds=${embeds}&pageNumber=${currentPage}&pageSize=${pageSize}`;
+
   const query = `${queryString}&mileageGreaterThanOrEqual=${mileageGreaterThanOrEqual}&mileageLessThanOrEqual=${mileageLessThanOrEqual}`;
   return await axios.get(`${rootURL}?${query}`);
 }

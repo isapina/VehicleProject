@@ -8,20 +8,14 @@ import { validateServiceType } from '../validations/serviceType';
 class ServiceTypeStore {
   @observable serviceType = new ServiceType();
 
-  @observable currentPage = 1;
-  @observable pageSize = 5;
+  @observable currentPage = 0;
+  @observable pageSize = 0;
   @observable totalItems = 0;
   @observable totalPages = 0;
 
   @observable loading = false;
   @observable serviceTypes = null;
   @observable errors = {};
-
-  @action
-  onPageChange = (page, params) => {
-    this.currentPage = page;
-    this.find(params);
-  }
 
   @action
   findOne = async (id, embeds) => {
@@ -108,11 +102,6 @@ class ServiceTypeStore {
   @action
   onMileageChange = (e) => {
     this.serviceType[e.target.name] = e.target.value;
-  }
-
-  @action
-  onNumberValueChange = (e) => {
-    this[e.target.name] = parseInt(e.target.value, 10);
   }
 
   @action

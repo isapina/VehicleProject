@@ -37,13 +37,19 @@ class ServiceIntervals extends Component {
   }
 
   onPageChange = (page) => {
-    const query = this.props.store.filter.filter.queryString;
-    this.props.store.serviceInterval.onPageChange(page, query);
+    this.props.store.pagination.onPageChange(page);
+    const { embedsCSV } = this.props.store.embeds;
+    const { orderBy, ascending } = this.props.store.sorting;
+    const { searchTerm } = this.props.store.search;
+    const { currentPage, pageSize } = this.props.store.pagination;
+    this.props.store.serviceInterval.find(searchTerm, embedsCSV, { orderBy, ascending }, { currentPage, pageSize });
   }
 
   render() {
     const { embedsCSV } = this.props.store.embeds;
     const { orderBy, ascending } = this.props.store.sorting;
+    const { searchTerm } = this.props.store.search;
+    const { currentPage, pageSize, setPageSize } = this.props.store.pagination;
 
     const { serviceInterval } = this.props.store;
     const paging = _.pick(serviceInterval, ['currentPage', 'pageSize', 'totalItems', 'totalPages']);
@@ -97,8 +103,8 @@ class ServiceIntervals extends Component {
           </div>
           <SelectListGroup
             name="pageSize"
-            value={serviceInterval.pageSize}
-            onChange={serviceInterval.onNumberValueChange}
+            value={pageSize}
+            onChange={setPageSize}
             options={pages}
             info="Select how many items you want to be displayed per page" />
         </div>
@@ -107,8 +113,7 @@ class ServiceIntervals extends Component {
 
     const pagination = serviceInterval.serviceIntervals !== null && serviceInterval.serviceIntervals.length > 0
       ? <Pagination
-        itemsCount={paging.totalItems}
-        pageSize={paging.pageSize}
+        totalPages={paging.totalPages}
         currentPage={paging.currentPage}
         onPageChange={this.onPageChange}
       />
@@ -123,7 +128,7 @@ class ServiceIntervals extends Component {
         <hr />
         <SearchBox
           placeholder="Search mileage..."
-          onSearch={() => serviceInterval.find('', embedsCSV, { orderBy, ascending })}
+          onSearch={() => serviceInterval.find(searchTerm, embedsCSV, { orderBy, ascending }, { currentPage, pageSize })}
         />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}

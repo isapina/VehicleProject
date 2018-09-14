@@ -35,13 +35,19 @@ class ServiceTypes extends Component {
   }
 
   onPageChange = (page) => {
-    const query = this.props.store.filter.filter.queryString;
-    this.props.store.serviceType.onPageChange(page, query);
+    this.props.store.pagination.onPageChange(page);
+    const { embedsCSV } = this.props.store.embeds;
+    const { orderBy, ascending } = this.props.store.sorting;
+    const { searchTerm } = this.props.store.search;
+    const { currentPage, pageSize } = this.props.store.pagination;
+    this.props.store.serviceType.find(searchTerm, embedsCSV, { orderBy, ascending }, { currentPage, pageSize });
   }
 
   render() {
     const { embedsCSV } = this.props.store.embeds;
     const { orderBy, ascending } = this.props.store.sorting;
+    const { searchTerm } = this.props.store.search;
+    const { currentPage, pageSize, setPageSize } = this.props.store.pagination;
 
     const { serviceTypes, onSelect, onRemoveServiceType, find } = this.props.store.serviceType;
     const { serviceType } = this.props.store;
@@ -57,8 +63,6 @@ class ServiceTypes extends Component {
           serviceTypes={serviceTypes}
           onSelect={onSelect}
           onRemoveServiceType={onRemoveServiceType}
-          onPageChange={this.onPageChange}
-          paging={paging}
         />)
     }
 
@@ -71,8 +75,8 @@ class ServiceTypes extends Component {
           </div>
           <SelectListGroup
             name="pageSize"
-            value={serviceType.pageSize}
-            onChange={serviceType.onNumberValueChange}
+            value={pageSize}
+            onChange={setPageSize}
             options={pages}
             info="Select how many items you want to be displayed per page" />
         </div >
@@ -81,8 +85,7 @@ class ServiceTypes extends Component {
 
     const pagination = serviceTypes !== null && serviceTypes.length > 0
       ? <Pagination
-        itemsCount={paging.totalItems}
-        pageSize={paging.pageSize}
+        totalPages={paging.totalPages}
         currentPage={paging.currentPage}
         onPageChange={this.onPageChange}
       />
@@ -94,7 +97,9 @@ class ServiceTypes extends Component {
           <GoBackLink to="/car-service" />
           <h3 className="col-sm-10"> Service-type</h3>
         </div>
-        <SearchBox placeholder="Search by Name..." onSearch={() => find('', embedsCSV, { orderBy, ascending })} />
+        <SearchBox
+          placeholder="Search by Name..."
+          onSearch={() => find(searchTerm, embedsCSV, { orderBy, ascending }, { currentPage, pageSize })} />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
         {pagination}

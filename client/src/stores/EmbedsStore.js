@@ -21,6 +21,11 @@ class EmbedsStore {
     const include = _.map(_.filter(this.embeds, embed => embed.value === true), item => item.name);
     return include.join(',');
   }
+
+  @action
+  clear = () => {
+    this.embeds = [];
+  }
 }
 
 const embedsStore = new EmbedsStore();

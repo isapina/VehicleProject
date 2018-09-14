@@ -8,8 +8,8 @@ import { validateAdditionalEquipment } from '../validations/additionalEquipment'
 class AdditionalEquipmentStore {
   @observable additionalEquipment = new AdditionalEquipment();
 
-  @observable currentPage = 1;
-  @observable pageSize = 5;
+  @observable currentPage = 0;
+  @observable pageSize = 0;
   @observable totalItems = 0;
   @observable totalPages = 0;
 
@@ -18,17 +18,10 @@ class AdditionalEquipmentStore {
   @observable errors = {};
 
   @action
-  onPageChange = (page, params) => {
-    this.currentPage = page;
-    this.find(params);
-  }
-
-  @action
   find = async (searchTerm, embeds, sorting, paging) => {
     try {
       this.loading = true;
       const res = await service.find(searchTerm, embeds, sorting, paging);
-      console.log({ res });
       if (!_.isEmpty(res.data.data)) {
         this.additionalEquipments = res.data.data;
         this.currentPage = res.data.currentPage;
@@ -83,11 +76,6 @@ class AdditionalEquipmentStore {
     } catch (error) {
       this.errors = error.response.data;
     }
-  }
-
-  @action
-  onNumberValueChange = (e) => {
-    this[e.target.name] = parseInt(e.target.value, 10);
   }
 
   @action

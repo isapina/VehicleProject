@@ -7,6 +7,10 @@ import SelectListGroup from '../common/SelectListGroup';
 @inject('store')
 @observer
 class Sorting extends Component {
+  componentWillUnmount() {
+    this.props.store.sorting.clear();
+  }
+
   render() {
     const { onChange, orderBy, ascending } = this.props.store.sorting;
 

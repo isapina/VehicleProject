@@ -5,21 +5,25 @@ import PropTypes from 'prop-types';
 @inject('store')
 @observer
 class SearchBox extends Component {
+  componentWillUnmount() {
+    this.props.store.search.clear();
+  }
+
   handleKeyPress = (e) => {
     if (e.charCode === 13) {
-      this.props.onSearch(this.props.store.filter.filter.queryString);
+      this.props.onSearch();
     }
   }
 
   render() {
-    const { filter, onChange } = this.props.store.filter;
+    const { searchTerm, onChange } = this.props.store.search;
     return (
       <div className="input-group mb-3">
         <input
           type="text"
           className="form-control"
           placeholder={this.props.placeholder}
-          value={filter.searchTerm}
+          value={searchTerm}
           name="searchTerm"
           onChange={onChange}
           onKeyPress={this.handleKeyPress}
@@ -28,7 +32,7 @@ class SearchBox extends Component {
           <button
             className="btn btn-outline-secondary"
             type="button"
-            onClick={() => this.props.onSearch(filter.queryString)}
+            onClick={this.props.onSearch}
           >Search...</button>
         </div>
       </div>

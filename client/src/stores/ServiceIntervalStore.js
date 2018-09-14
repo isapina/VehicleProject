@@ -8,8 +8,8 @@ import { validateServiceInterval } from '../validations/serviceInterval';
 class ServiceIntervalStore {
   @observable serviceInterval = new ServiceInterval();
 
-  @observable currentPage = 1;
-  @observable pageSize = 5;
+  @observable currentPage = 0;
+  @observable pageSize = 0;
   @observable totalItems = 0;
   @observable totalPages = 0;
 
@@ -18,12 +18,6 @@ class ServiceIntervalStore {
   @observable loading = false;
   @observable serviceIntervals = null;
   @observable errors = {};
-
-  @action
-  onPageChange = (page, params) => {
-    this.currentPage = page;
-    this.find(params);
-  }
 
   @action
   findOne = async (id, embeds) => {
@@ -103,11 +97,6 @@ class ServiceIntervalStore {
   @action
   onChange = (e) => {
     this.serviceInterval[e.target.name] = e.target.value;
-  }
-
-  @action
-  onNumberValueChange = (e) => {
-    this[e.target.name] = parseInt(e.target.value, 10);
   }
 
   @action

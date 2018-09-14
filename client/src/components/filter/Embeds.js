@@ -9,6 +9,10 @@ class Embeds extends Component {
     this.props.store.embeds.fillEmbeds(this.props.embeds);
   }
 
+  componentWillUnmount() {
+    this.props.store.embeds.clear();
+  }
+
   render() {
     const { onCheck, embeds } = this.props.store.embeds;
     const renderIncludes = _.map(embeds, embed => (
