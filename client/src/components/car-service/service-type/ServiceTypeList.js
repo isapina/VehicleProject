@@ -22,8 +22,8 @@ class ServiceTypeList extends Component {
 
   handleRemove = async () => {
     const { id } = this.state;
+    this.setState({ isOpen: false });
     await this.props.onRemoveServiceType(id);
-    this.handleCancel();
   }
 
   handleCancel = () => {

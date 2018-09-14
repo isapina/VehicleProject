@@ -20,8 +20,8 @@ class ServiceIntervalList extends Component {
 
   handleRemove = async () => {
     const { id } = this.state;
+    this.setState({ isOpen: false });
     await this.props.onRemoveServiceInterval(id);
-    this.handleCancel();
   }
 
   handleCancel = () => {

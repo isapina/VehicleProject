@@ -35,6 +35,7 @@ class ServiceTypeStore {
 
   @action
   find = async (params) => {
+    console.log(params);
     try {
       this.loading = true;
       const res = await service.find(params, this.currentPage, this.pageSize);

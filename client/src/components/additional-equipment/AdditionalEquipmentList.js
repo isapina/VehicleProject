@@ -19,6 +19,7 @@ class AdditionalEquipmentList extends Component {
 
   handleRemove = async () => {
     const { id } = this.state;
+    this.setState({ isModalOpen: false });
     await this.props.onRemoveAdditionalEquipment(id);
   }
 

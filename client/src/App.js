@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
+
 import AdditionalEquipments from './components/additional-equipment/AdditionalEquipments';
 import AddAdditionalEquipment from './components/additional-equipment/AddAdditionalEquipment';
 import EditAdditionalEquipment from './components/additional-equipment/EditAdditionalEquipment';
