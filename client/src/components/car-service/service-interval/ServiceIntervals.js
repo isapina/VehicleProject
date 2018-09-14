@@ -43,6 +43,8 @@ class ServiceIntervals extends Component {
 
   render() {
     const { embedsCSV } = this.props.store.embeds;
+    const { orderBy, ascending } = this.props.store.sorting;
+
     const { serviceInterval } = this.props.store;
     const paging = _.pick(serviceInterval, ['currentPage', 'pageSize', 'totalItems', 'totalPages']);
 
@@ -121,7 +123,7 @@ class ServiceIntervals extends Component {
         <hr />
         <SearchBox
           placeholder="Search mileage..."
-          onSearch={() => serviceInterval.find('', embedsCSV)}
+          onSearch={() => serviceInterval.find('', embedsCSV, { orderBy, ascending })}
         />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}

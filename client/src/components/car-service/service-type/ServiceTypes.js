@@ -41,6 +41,8 @@ class ServiceTypes extends Component {
 
   render() {
     const { embedsCSV } = this.props.store.embeds;
+    const { orderBy, ascending } = this.props.store.sorting;
+
     const { serviceTypes, onSelect, onRemoveServiceType, find } = this.props.store.serviceType;
     const { serviceType } = this.props.store;
     const paging = _.pick(serviceType, ['currentPage', 'pageSize', 'totalItems', 'totalPages']);
@@ -92,7 +94,7 @@ class ServiceTypes extends Component {
           <GoBackLink to="/car-service" />
           <h3 className="col-sm-10"> Service-type</h3>
         </div>
-        <SearchBox placeholder="Search by Name..." onSearch={() => find('', embedsCSV)} />
+        <SearchBox placeholder="Search by Name..." onSearch={() => find('', embedsCSV, { orderBy, ascending })} />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
         {pagination}
