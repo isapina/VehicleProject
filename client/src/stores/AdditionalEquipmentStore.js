@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { action, observable } from 'mobx';
 import * as service from '../services/additionalEquipmentService';
 
-import { AdditionalEquipment } from '../models/AdditionalEquipment';
+import AdditionalEquipment from '../models/AdditionalEquipment';
 import { validateAdditionalEquipment } from '../validations/additionalEquipment';
 
 class AdditionalEquipmentStore {
@@ -24,10 +24,11 @@ class AdditionalEquipmentStore {
   }
 
   @action
-  find = async (params) => {
+  find = async (searchTerm, embeds, sorting, paging) => {
     try {
       this.loading = true;
-      const res = await service.find(params, this.currentPage, this.pageSize);
+      const res = await service.find(searchTerm, embeds, sorting, paging);
+      console.log({ res });
       if (!_.isEmpty(res.data.data)) {
         this.additionalEquipments = res.data.data;
         this.currentPage = res.data.currentPage;

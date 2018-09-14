@@ -2,8 +2,9 @@ import axios from '../axios';
 
 const rootURL = "/api/additional-equipments";
 
-export const find = async (queryString = '', currentPage = 1, pageSize = 10) => {
-  return await axios.get(`${rootURL}?${queryString}&pageNumber=${currentPage}&pageSize=${pageSize}`);
+export const find = async (searchTerm = '', embeds = '', { orderBy = 'id', ascending = true } = '', { currentPage = 1, pageSize = 5 } = {}) => {
+  const queryString = `searchTerm=${searchTerm}&orderBy=${orderBy}&ascending=${ascending}&embeds=${embeds}&pageNumber=${currentPage}&pageSize=${pageSize}`
+  return await axios.get(`${rootURL}?${queryString}`);
 }
 
 export const findOne = async (id, embeds = '') => {

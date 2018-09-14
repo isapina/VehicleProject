@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 
-export class AdditionalEquipment {
+export default class AdditionalEquipment {
   @observable name = '';
   @observable description = '';
   @observable equipmentname = '';

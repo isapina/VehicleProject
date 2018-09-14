@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 
-export class ServiceInterval {
+export default class ServiceInterval {
   @observable maximumMileage = '';
   @observable vehicleModelId = '';
   @observable serviceTypeId = '';

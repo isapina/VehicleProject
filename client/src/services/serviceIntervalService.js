@@ -3,16 +3,11 @@ import axios from '../axios';
 
 const rootURL = "/api/service-intervals";
 
-export const find = async (params = '', currentPage = 1, pageSize = 10, mileageGreaterThanOrEqual, mileageLessThanOrEqual) => {
+export const find = async (searchTerm = '', embeds = '', { orderBy = 'id', ascending = true } = '', { currentPage = 1, pageSize = 5 } = {}, mileageGreaterThanOrEqual, mileageLessThanOrEqual) => {
 
-  let query = '';
-  if (_.isEmpty(params)) {
-    query = `mileageGreaterThanOrEqual=${mileageGreaterThanOrEqual}&mileageLessThanOrEqual=${mileageLessThanOrEqual}`;
-  }
-  else {
-    query = `${params}&mileageGreaterThanOrEqual=${mileageGreaterThanOrEqual}&mileageLessThanOrEqual=${mileageLessThanOrEqual}`;
-  }
-  return await axios.get(`${rootURL}?${query}&pageNumber=${currentPage}&pageSize=${pageSize}`);
+  const queryString = `searchTerm=${searchTerm}&orderBy=${orderBy}&ascending=${ascending}&embeds=${embeds}&pageNumber=${currentPage}&pageSize=${pageSize}`
+  const query = `${queryString}&mileageGreaterThanOrEqual=${mileageGreaterThanOrEqual}&mileageLessThanOrEqual=${mileageLessThanOrEqual}`;
+  return await axios.get(`${rootURL}?${query}`);
 }
 
 export const findOne = async (id, embeds = '') => {

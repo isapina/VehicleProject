@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { action, observable } from 'mobx';
 import * as service from '../services/serviceIntervalService';
 
-import { ServiceInterval } from '../models/ServiceInterval';
+import ServiceInterval from '../models/ServiceInterval';
 import { validateServiceInterval } from '../validations/serviceInterval';
 
 class ServiceIntervalStore {
@@ -36,13 +36,13 @@ class ServiceIntervalStore {
   }
 
   @action
-  find = async (params) => {
+  find = async (searchTerm, embeds, sorting, paging) => {
     try {
       this.loading = true;
       const from = this.mileageGreaterThanOrEqual > 0 ? this.mileageGreaterThanOrEqual : null;
       const to = this.mileageLessThanOrEqual > 0 ? this.mileageLessThanOrEqual : null;
 
-      const res = await service.find(params, this.currentPage, this.pageSize, from, to);
+      const res = await service.find(searchTerm, embeds, sorting, paging, from, to);
       if (!_.isEmpty(res.data.data)) {
         this.serviceIntervals = res.data.data;
         this.currentPage = res.data.currentPage;

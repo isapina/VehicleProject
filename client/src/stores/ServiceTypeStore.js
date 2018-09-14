@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { action, observable } from 'mobx';
 import * as service from '../services/serviceTypeService';
 
-import { ServiceType } from '../models/ServiceType';
+import ServiceType from '../models/ServiceType';
 import { validateServiceType } from '../validations/serviceType';
 
 class ServiceTypeStore {
@@ -34,11 +34,10 @@ class ServiceTypeStore {
   }
 
   @action
-  find = async (params) => {
-    console.log(params);
+  find = async (searchTerm, embeds, sorting, paging) => {
     try {
       this.loading = true;
-      const res = await service.find(params, this.currentPage, this.pageSize);
+      const res = await service.find(searchTerm, embeds, sorting, paging);
       if (!_.isEmpty(res.data.data)) {
         this.serviceTypes = res.data.data;
         this.currentPage = res.data.currentPage;

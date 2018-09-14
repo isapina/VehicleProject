@@ -36,6 +36,7 @@ class AdditionalEquipments extends Component {
   }
 
   render() {
+    const { embedsCSV } = this.props.store.embeds;
     const { equipment } = this.props.store;
     const paging = _.pick(equipment, ['currentPage', 'pageSize', 'totalItems', 'totalPages']);
 
@@ -87,7 +88,7 @@ class AdditionalEquipments extends Component {
         <hr />
         <SearchBox
           placeholder="Search by Name or Description..."
-          onSearch={equipment.find}
+          onSearch={() => equipment.find('', embedsCSV)}
         />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}

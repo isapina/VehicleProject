@@ -6,12 +6,12 @@ import { inject, observer } from 'mobx-react';
 @observer
 class Embeds extends Component {
   componentDidMount() {
-    this.props.store.filter.fillEmbeds(this.props.embeds);
+    this.props.store.embeds.fillEmbeds(this.props.embeds);
   }
 
   render() {
-    const { onCheck, filter } = this.props.store.filter;
-    const renderIncludes = _.map(filter.embeds, embed => (
+    const { onCheck, embeds } = this.props.store.embeds;
+    const renderIncludes = _.map(embeds, embed => (
       <div className="form-check  w-50 d-flex justify-content-start" key={embed.name}>
         <input
           type="checkbox"

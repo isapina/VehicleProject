@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { observable, action } from 'mobx';
 
-import { Filter } from '../models/Filter';
+import Filter from '../models/Filter';
 
 class FilterStore {
   @observable filter = new Filter();

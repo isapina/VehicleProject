@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 
-export class ServiceType {
+export default class ServiceType {
   @observable name = '';
   @observable oilChangeService = false;
   @observable intervalService = false;
