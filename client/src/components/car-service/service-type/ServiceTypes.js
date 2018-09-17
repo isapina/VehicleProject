@@ -36,6 +36,10 @@ class ServiceTypes extends Component {
 
   onPageChange = (page) => {
     this.props.store.pagination.onPageChange(page);
+    this.find();
+  }
+
+  find = () => {
     const { embedsCSV } = this.props.store.embeds;
     const { orderBy, ascending } = this.props.store.sorting;
     const { searchTerm } = this.props.store.search;
@@ -44,12 +48,9 @@ class ServiceTypes extends Component {
   }
 
   render() {
-    const { embedsCSV } = this.props.store.embeds;
-    const { orderBy, ascending } = this.props.store.sorting;
-    const { searchTerm } = this.props.store.search;
-    const { currentPage, pageSize, setPageSize } = this.props.store.pagination;
+    const { pageSize, setPageSize } = this.props.store.pagination;
 
-    const { serviceTypes, onSelect, onRemoveServiceType, find } = this.props.store.serviceType;
+    const { serviceTypes, onSelect, onRemoveServiceType } = this.props.store.serviceType;
     const { serviceType } = this.props.store;
     const paging = _.pick(serviceType, ['currentPage', 'pageSize', 'totalItems', 'totalPages']);
 
@@ -99,7 +100,7 @@ class ServiceTypes extends Component {
         </div>
         <SearchBox
           placeholder="Search by Name..."
-          onSearch={() => find(searchTerm, embedsCSV, { orderBy, ascending }, { currentPage, pageSize })} />
+          onSearch={this.find} />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
         {pagination}

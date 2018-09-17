@@ -105,6 +105,17 @@ class ServiceIntervalStore {
   }
 
   @action
+  onNumberValueChange = (e) => {
+    const parsed = parseInt(e.target.value, 10)
+    if (!Number.isNaN(parsed)) {
+      this[e.target.name] = parsed;
+    }
+    else {
+      this[e.target.name] = '';
+    }
+  }
+
+  @action
   refreshStateToInitialValue = () => {
     this.serviceInterval.maximumMileage = '';
     this.serviceInterval.vehicleModelId = '';

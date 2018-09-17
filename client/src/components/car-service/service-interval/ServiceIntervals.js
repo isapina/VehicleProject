@@ -38,6 +38,10 @@ class ServiceIntervals extends Component {
 
   onPageChange = (page) => {
     this.props.store.pagination.onPageChange(page);
+    this.find();
+  }
+
+  find = () => {
     const { embedsCSV } = this.props.store.embeds;
     const { orderBy, ascending } = this.props.store.sorting;
     const { searchTerm } = this.props.store.search;
@@ -46,10 +50,7 @@ class ServiceIntervals extends Component {
   }
 
   render() {
-    const { embedsCSV } = this.props.store.embeds;
-    const { orderBy, ascending } = this.props.store.sorting;
-    const { searchTerm } = this.props.store.search;
-    const { currentPage, pageSize, setPageSize } = this.props.store.pagination;
+    const { pageSize, setPageSize } = this.props.store.pagination;
 
     const { serviceInterval } = this.props.store;
     const paging = _.pick(serviceInterval, ['currentPage', 'pageSize', 'totalItems', 'totalPages']);
@@ -128,7 +129,7 @@ class ServiceIntervals extends Component {
         <hr />
         <SearchBox
           placeholder="Search mileage..."
-          onSearch={() => serviceInterval.find(searchTerm, embedsCSV, { orderBy, ascending }, { currentPage, pageSize })}
+          onSearch={this.find}
         />
         <ToggleButton onClick={this.toggleFilters} value={this.state.toggleFilters} whenOnInfo="Hide filters" whenOffInfo="Show filters" />
         {filters}
