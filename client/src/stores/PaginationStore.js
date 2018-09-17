@@ -2,7 +2,7 @@ import { observable, action } from 'mobx';
 
 class PaginationStore {
   @observable currentPage = 1;
-  @observable pageSize = 2;
+  @observable pageSize = 5;
 
   @action
   onPageChange = (page, callback) => {
