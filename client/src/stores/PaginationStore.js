@@ -2,11 +2,12 @@ import { observable, action } from 'mobx';
 
 class PaginationStore {
   @observable currentPage = 1;
-  @observable pageSize = 5;
+  @observable pageSize = 2;
 
   @action
-  onPageChange = (page) => {
+  onPageChange = (page, callback) => {
     this.currentPage = page;
+    callback();
   }
 
   @action

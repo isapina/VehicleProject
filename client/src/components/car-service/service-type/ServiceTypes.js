@@ -34,9 +34,8 @@ class ServiceTypes extends Component {
     this.setState(prevState => ({ toggleFilters: !prevState.toggleFilters }))
   }
 
-  onPageChange = (page) => {
-    this.props.store.pagination.onPageChange(page);
-    this.find();
+  onPageChange = (page, callback) => {
+    this.props.store.pagination.onPageChange(page, callback);
   }
 
   find = () => {
@@ -88,7 +87,7 @@ class ServiceTypes extends Component {
       ? <Pagination
         totalPages={paging.totalPages}
         currentPage={paging.currentPage}
-        onPageChange={this.onPageChange}
+        onPageChange={(page) => this.onPageChange(page, this.find)}
       />
       : '';
 

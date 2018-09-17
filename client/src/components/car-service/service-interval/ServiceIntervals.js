@@ -36,9 +36,8 @@ class ServiceIntervals extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onPageChange = (page) => {
-    this.props.store.pagination.onPageChange(page);
-    this.find();
+  onPageChange = (page, callback) => {
+    this.props.store.pagination.onPageChange(page, callback);
   }
 
   find = () => {
@@ -116,7 +115,7 @@ class ServiceIntervals extends Component {
       ? <Pagination
         totalPages={paging.totalPages}
         currentPage={paging.currentPage}
-        onPageChange={this.onPageChange}
+        onPageChange={(page) => this.onPageChange(page, this.find)}
       />
       : '';
 
