@@ -30,5 +30,5 @@ export const update = async (id, data) => {
 }
 
 export const remove = async (id) => {
-  return await request.remove(`${rootURL}/${id}`);
+  return await request.delete(`${rootURL}/${id}`);
 }
