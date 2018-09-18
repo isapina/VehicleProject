@@ -1,4 +1,4 @@
-import axios from '../axios';
+import { request } from '../request';
 
 const rootURL = "/api/additional-equipments";
 
@@ -9,21 +9,22 @@ export const find = async (
   { currentPage = 1, pageSize = 5 } = {}
 ) => {
   const queryString = `searchTerm=${searchTerm}&orderBy=${orderBy}&ascending=${ascending}&embeds=${embeds}&pageNumber=${currentPage}&pageSize=${pageSize}`;
-  return await axios.get(`${rootURL}?${queryString}`);
+
+  return await request.get(`${rootURL}?${queryString}`);
 }
 
 export const findOne = async (id, embeds = '') => {
-  return await axios.get(`${rootURL}/${id}?embeds=${embeds}`);
+  return await request.get(`${rootURL}/${id}?embeds=${embeds}`);
 }
 
 export const save = async (data) => {
-  return await axios.post(rootURL, data);
+  return await request.post(rootURL, data);
 }
 
 export const update = async (id, data) => {
-  return await axios.post(`${rootURL}/${id}/attributes`, data);
+  return await request.post(`${rootURL}/${id}/attributes`, data);
 }
 
 export const remove = async (id) => {
-  return await axios.delete(`${rootURL}/${id}`);
+  return await request.remove(`${rootURL}/${id}`);
 }
