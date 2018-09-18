@@ -121,6 +121,8 @@ class ServiceIntervalStore {
     this.serviceInterval.vehicleModelId = '';
     this.serviceInterval.serviceTypeId = '';
     this.serviceIntervals = null;
+    this.mileageGreaterThanOrEqual = '';
+    this.mileageLessThanOrEqual = '';
     this.errors = {};
   }
 }
