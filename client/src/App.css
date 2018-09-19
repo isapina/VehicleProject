@@ -33,3 +33,7 @@
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+.ReactModal__Overlay {
+  z-index: 1000;
+}
